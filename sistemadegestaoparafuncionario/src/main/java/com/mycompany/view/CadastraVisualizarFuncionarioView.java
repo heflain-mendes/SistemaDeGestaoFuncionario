@@ -6,6 +6,7 @@ package com.mycompany.view;
 
 import javax.accessibility.AccessibleContext;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
@@ -42,8 +43,6 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
         txtNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         cbBonus = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        txtFalta = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -54,6 +53,8 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
+        cbFuncionarioDoMes = new javax.swing.JCheckBox();
+        btnAddFaltas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,14 +79,6 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
 
         cbBonus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel4.setText("Faltas:");
-
-        txtFalta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFaltaActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Idade:");
 
         jLabel6.setText("Salário:");
@@ -106,6 +99,15 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
 
         btnSalvar.setText("Salvar");
 
+        cbFuncionarioDoMes.setText("Funcionario do Mes");
+        cbFuncionarioDoMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFuncionarioDoMesActionPerformed(evt);
+            }
+        });
+
+        btnAddFaltas.setText("Add Faltas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,12 +120,9 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cbCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
@@ -132,13 +131,16 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtFalta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(304, 304, 304))))
-                        .addGap(55, 55, 55)
+                                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbFuncionarioDoMes))
+                                .addGap(55, 55, 55))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(btnAddFaltas)
+                                .addGap(35, 35, 35)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -154,7 +156,7 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
                                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,16 +188,16 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
                             .addComponent(txtSalario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtFalta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
-                            .addComponent(txtAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtAdmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbFuncionarioDoMes))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddFaltas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
 
@@ -210,13 +212,13 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCargoActionPerformed
 
-    private void txtFaltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFaltaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFaltaActionPerformed
-
     private void txtSalarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSalarioActionPerformed
+
+    private void cbFuncionarioDoMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFuncionarioDoMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbFuncionarioDoMesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,21 +257,21 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddFaltas;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbBonus;
     private javax.swing.JComboBox<String> cbCargo;
+    private javax.swing.JCheckBox cbFuncionarioDoMes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtAdmissao;
-    private javax.swing.JTextField txtFalta;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSalario;
@@ -303,8 +305,8 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
         return txtAdmissao;
     }
 
-    public JTextField getTxtFalta() {
-        return txtFalta;
+    public JCheckBox getCbFuncionarioDoMes() {
+        return cbFuncionarioDoMes;
     }
 
     public JTextField getTxtIdade() {
@@ -317,5 +319,9 @@ public class CadastraVisualizarFuncionarioView extends javax.swing.JFrame {
 
     public JTextField getTxtSalario() {
         return txtSalario;
+    }
+
+    public JButton getBtnAddFaltas() {
+        return btnAddFaltas;
     }
 }

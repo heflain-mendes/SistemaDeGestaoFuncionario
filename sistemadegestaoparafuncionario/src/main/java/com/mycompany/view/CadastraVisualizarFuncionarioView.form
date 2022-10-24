@@ -32,13 +32,9 @@
                       <Component id="cbCargo" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btnFechar" min="-2" pref="91" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnExcluir" min="-2" pref="106" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -50,16 +46,19 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="txtNome" min="-2" pref="406" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="cbFuncionarioDoMes" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="txtFalta" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="304" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnFechar" min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnExcluir" min="-2" pref="106" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Component id="btnAddFaltas" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -82,7 +81,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -124,10 +123,9 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFalta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtAdmissao" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbFuncionarioDoMes" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -137,6 +135,7 @@
                   <Component id="btnExcluir" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="btnEditar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="btnSalvar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="btnAddFaltas" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
@@ -197,16 +196,6 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Faltas:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtFalta">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFaltaActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Idade:"/>
@@ -249,6 +238,19 @@
     <Component class="javax.swing.JButton" name="btnSalvar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salvar"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="cbFuncionarioDoMes">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Funcionario do Mes"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbFuncionarioDoMesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAddFaltas">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add Faltas"/>
       </Properties>
     </Component>
   </SubComponents>
