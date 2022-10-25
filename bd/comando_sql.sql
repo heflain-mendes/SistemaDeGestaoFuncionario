@@ -1,16 +1,15 @@
 CREATE TABLE IF NOT EXISTS funcionairos(
-    id INTEGER NOT NULL AUTOINCREMENT UNIQUE,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     nome TEXT NOT NULL,
     cargo TEXT NOT NULL,
     data_inicio TEXT NOT NULL,
     salario_base REAL NOT NULL,
     distancia_trabalho REAL NOT NULL,
     funcionario_mes INTEGER NOT NULL,
-    PRIMARY KEY(id)
 );
 
 //insert
-INSERT INTO funcionairos (nome, cargo, data_inicio, salario_base, distancia_trabalho, funcionario_mes) VALUE (?, ?, ?, ?, ?, ?)
+INSERT INTO funcionairos (nome, cargo, data_inicio, salario_base, distancia_trabalho, funcionario_mes) VALUES (?, ?, ?, ?, ?, ?)
 
 //getAll
 SELECT * FROM funcionairos
@@ -24,17 +23,16 @@ DELETE FROM funcionairos WHERE id = ?
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS salarios(
-    id INTEGER NOT NULL AUTOINCREMENT UNIQUE,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     id_funcionario INTEGER NOT NULL,
     salario_base REAL NOT NULL,
     salario_total REAL NOT NULL,
     data_salario TEXT NOT NULL,
-    PRIMARY KEY (id),
     FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)
 );
 
 //insert
-INSERT INTO salarios (id_funcionario, salario_base, salario_total, data_salario) VALUE ( ?, ?, ?, ?)
+INSERT INTO salarios (id_funcionario, salario_base, salario_total, data_salario) VALUES ( ?, ?, ?, ?)
 
 //getByIdFuncionario
 SELECT * FROM salarios WHERE id_funcionario = ?
@@ -48,12 +46,11 @@ DELETE FROM salarios WHERE id = ?
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS bonus(
-    id INTEGER NOT NULL AUTOINCREMENT UNIQUE,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     id_funcionario INTEGER NOT NULL,
     tipo TEXT NOT NULL,
     data_bonus TEXT NOT NULL,
     valor REAL NOT NULL,
-    PRIMARY KEY (id),
     FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)
 );
 
@@ -78,7 +75,7 @@ CREATE TABLE IF NOT EXISTS faltas(
 );
 
 //insert
-INSERT INTO faltas (id_funcionario, qtd, data_falta) VALUE ( ?, ?, ?)
+INSERT INTO faltas (id_funcionario, qtd, data_falta) VALUES ( ?, ?, ?)
 
 //getByIdFuncionario
 SELECT * FROM faltas WHERE id_funcionario = ?
@@ -106,7 +103,7 @@ CREATE TABLE IF NOT EXISTS calculos_estatisticos(
 );
 
 //insert
-INSERT INTO calculos_estatisticos (id_funcionario, data_calculo, somatorio, media, desvio_padrao, maior_salario, qtd_salario, coeficiente_variacao) VALUE ( ?, ?, ?, ?, ?, ?, ?, ?)
+INSERT INTO calculos_estatisticos (id_funcionario, data_calculo, somatorio, media, desvio_padrao, maior_salario, qtd_salario, coeficiente_variacao) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)
 
 //getAll
 SELECT * FROM calculos_estatisticos

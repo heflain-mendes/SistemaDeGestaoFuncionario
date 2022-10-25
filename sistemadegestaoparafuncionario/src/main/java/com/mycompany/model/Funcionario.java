@@ -12,24 +12,38 @@ import java.util.List;
  * @author heflain
  */
 public class Funcionario {
-    private Long id;
+    private int id;
     private String nome;
     private String cargo;
     private LocalDate dataInicioNaEmpresa;
-    private Double salarioBaseAtual;
+    private double salarioBaseAtual;
+    private double distanciaDoTrabalho;
+    private boolean funcionairoDoMes;
 
     private List<Falta> faltas;
     private List<Bonus> bonus;
     private List<Salario> salarios;
 
-    public Funcionario(String nome, String cargo, LocalDate dataInicioNaEmpresa, Double salarioBaseAtual) {
+    public Funcionario(int id,String nome, String cargo, LocalDate dataInicioNaEmpresa, double salarioBaseAtual, double distanciaDoTrabalho, boolean funcionairoDoMes) {
+        this.id = id;
         this.nome = nome;
         this.cargo = cargo;
         this.dataInicioNaEmpresa = dataInicioNaEmpresa;
         this.salarioBaseAtual = salarioBaseAtual;
+        this.distanciaDoTrabalho = distanciaDoTrabalho;
+        this.funcionairoDoMes = funcionairoDoMes;
     }
 
-    public long getId() {
+    public Funcionario(String nome, String cargo, LocalDate dataInicioNaEmpresa, double salarioBaseAtual, double distanciaDoTrabalho, boolean funcionairoDoMes) {
+        this.nome = nome;
+        this.cargo = cargo;
+        this.dataInicioNaEmpresa = dataInicioNaEmpresa;
+        this.salarioBaseAtual = salarioBaseAtual;
+        this.distanciaDoTrabalho = distanciaDoTrabalho;
+        this.funcionairoDoMes = funcionairoDoMes;
+    }
+
+    public int getId() {
         return id;
     }
 
@@ -60,11 +74,19 @@ public class Funcionario {
     public List<Salario> getSalarios() {
         return salarios;
     }
+    
+    public double getDistanciaDoTrabalho(){
+        return distanciaDoTrabalho;
+    }
+
+    public boolean IsFuncionairoDoMes() {
+        return funcionairoDoMes;
+    }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
@@ -75,10 +97,6 @@ public class Funcionario {
 
     public void setSalarioBaseAtual(Double salarioBaseAtual) {
         this.salarioBaseAtual = salarioBaseAtual;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setFaltas(List<Falta> faltas) {
