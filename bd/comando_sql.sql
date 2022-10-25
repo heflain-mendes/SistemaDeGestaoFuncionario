@@ -41,7 +41,7 @@ SELECT * FROM salarios WHERE id_funcionario = ?
 UPDATE salarios SET salario_base = ? , salario_total = ? , data_salario = ? WHERE id = ?
 
 //delete
-DELETE FROM salarios WHERE id = ?
+DELETE FROM salarios WHERE id_funcionario = ?
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
 

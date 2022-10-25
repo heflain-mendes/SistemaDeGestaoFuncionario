@@ -8,9 +8,11 @@ import com.mycompany.DAO.interfaces.IBonusDAO;
 import com.mycompany.model.Bonus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,12 +68,36 @@ public class BonusSQLiteDAO implements IBonusDAO {
     
     @Override
     public List<Bonus> obter(int idFuncionario) throws Exception, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT * FROM salarios WHERE id_funcionario = ?";
+        List<Bonus> bonus = new ArrayList<>();
+        try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idFuncionario);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bonus b = new Bonus(rs.getInt("id"),
+                        rs.getString("tipo"),
+                        rs.getDouble("valor"),
+                        LocalDate.parse(rs.getString("data_bonus")));
+                bonus.add(b);
+            }
+            
+            rs.close();
+            return bonus;
+        } catch (SQLException e) {
+            throw new SQLException("Não foi possivel obter todos bonus");
+        }
     }
     
     @Override
     public void remover(int idFuncionario, LocalDate data) throws Exception, SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM bonus WHERE id_funcionario = ? AND data_bonus = ?";
+        try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idFuncionario);
+            ps.setString(2, data.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new SQLException("Não foi possivel deletar salario");
+        }
     }
     
 }

@@ -11,12 +11,12 @@ import java.time.LocalDate;
  * @author heflain
  */
 public class Bonus {
-    private long id;
+    private int id;
     private String tipo;
     private double valor;
     private LocalDate data;
 
-    public Bonus(long id, String tipo, double valor, LocalDate data) {
+    public Bonus(int id, String tipo, double valor, LocalDate data) {
         this.id = id;
         this.tipo = tipo;
         this.valor = valor;
@@ -29,7 +29,7 @@ public class Bonus {
         this.data = data;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
