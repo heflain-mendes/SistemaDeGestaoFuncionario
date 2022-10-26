@@ -17,4 +17,5 @@ public interface IBonusDAO {
     public void salvar(int idFuncionario, List<Bonus> bonus) throws Exception, SQLException;
     public List<Bonus> obter(int idFuncionario) throws Exception, SQLException;
     public void remover(int idFuncionario, LocalDate data) throws Exception, SQLException;
+    public void removerTodos(int idFuncionario) throws Exception, SQLException;
 }

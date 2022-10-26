@@ -89,21 +89,21 @@ DELETE FROM faltas WHERE id_funcionario = ?
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS calculos_estatisticos(
-    id INTEGER NOT NULL AUTOINCREMENT UNIQUE,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
     id_funcionario INTEGER NOT NULL,
     data_calculo TEXT NOT NULL,
     somatorio REAL NOT NULL,
     media REAL NOT NULL,
     desvio_padrao REAL NOT NULL,
     maior_salario REAL NOT NULL,
+    menor_salario REAL NOT NULL,
     qtd_salario INTEGER NOT NULL,
     coeficiente_variacao REAL NOT NULL,
-    PRIMARY KEY (id),
     FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)
 );
 
 //insert
-INSERT INTO calculos_estatisticos (id_funcionario, data_calculo, somatorio, media, desvio_padrao, maior_salario, qtd_salario, coeficiente_variacao) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)
+INSERT INTO calculos_estatisticos (id_funcionario, data_calculo, somatorio, media, desvio_padrao, maior_salario, menor_salario, qtd_salario, coeficiente_variacao) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)
 
 //getAll
 SELECT * FROM calculos_estatisticos

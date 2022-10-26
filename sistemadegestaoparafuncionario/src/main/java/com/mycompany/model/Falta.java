@@ -11,33 +11,26 @@ import java.time.LocalDate;
  * @author heflain
  */
 public class Falta {
-    private long id;
+    private int id;
     private LocalDate date;
     private int quantidade;
-    private boolean funcionarioDoMes;
 
-    public Falta(long id, LocalDate date, int quantidade, boolean funcionarioDoMes) {
+    public Falta(int id, LocalDate date, int quantidade) {
         this.id = id;
         this.date = date;
         this.quantidade = quantidade;
-        this.funcionarioDoMes = funcionarioDoMes;
     }
 
-    public Falta(LocalDate date, int quantidade, boolean funcionarioDoMes) {
+    public Falta(LocalDate date, int quantidade) {
         this.date = date;
         this.quantidade = quantidade;
-        this.funcionarioDoMes = funcionarioDoMes;
     }
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
-    public void setFuncionarioDoMes(boolean funcionarioDoMes) {
-        this.funcionarioDoMes = funcionarioDoMes;
-    }
-    
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -47,9 +40,5 @@ public class Falta {
 
     public int getQuantidade() {
         return quantidade;
-    }
-
-    public boolean isFuncionarioDoMes() {
-        return funcionarioDoMes;
     }
 }

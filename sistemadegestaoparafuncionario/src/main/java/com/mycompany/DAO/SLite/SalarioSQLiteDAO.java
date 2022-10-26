@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,24 @@ import java.util.List;
  * @author heflain
  */
 public class SalarioSQLiteDAO implements ISalarioDAO {
+
+    public SalarioSQLiteDAO() throws SQLException, Exception {
+        String sql = "CREATE TABLE IF NOT EXISTS salarios("
+                + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+                + " id_funcionario INTEGER NOT NULL,"
+                + " salario_base REAL NOT NULL,"
+                + " salario_total REAL NOT NULL,"
+                + " data_salario TEXT NOT NULL,"
+                + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)"
+                + ");";
+
+        try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
+            st.execute(sql);
+        } catch (SQLException ex) {
+            //System.out.println(ex.getMessage());
+            throw new SQLException("Não foi possivel criar a tabela salario");
+        }
+    }
 
     @Override
     public void salvar(int idFuncionario, Salario salario) throws Exception, SQLException {
@@ -31,8 +50,8 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idFuncionario);
-            ps.setDouble(2, salario.getId());
-            ps.setDouble(3, salario.getSalarioBase());
+            ps.setDouble(2, salario.getSalarioBase());
+            ps.setDouble(3, salario.getSalarioTotal());
             ps.setString(4, salario.getData().toString());
             ps.executeUpdate();
 
@@ -88,13 +107,13 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
     }
 
     @Override
-    public void remover(int idFuncionario) throws Exception, SQLException{
-        String sql = "DELETE FROM salarios WHERE id_funcionario = ? ?";
+    public void remover(int idFuncionario) throws Exception, SQLException {
+        String sql = "DELETE FROM salarios WHERE id_funcionario = ?";
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idFuncionario);
             ps.executeUpdate();
-        }catch (Exception ex) {
-           throw new SQLException("Não foi possivel deletar salarios");
+        } catch (Exception ex) {
+            throw new SQLException("Não foi possivel deletar salarios");
         }
     }
 }

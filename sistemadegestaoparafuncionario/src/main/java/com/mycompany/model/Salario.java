@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @author heflain
  */
 public class Salario {
-    private final int id;
+    private int id;
     private Double salarioBase;
     private Double salarioTotal;
     private LocalDate data;
@@ -27,7 +27,6 @@ public class Salario {
         this.salarioBase = salarioBase;
         this.salarioTotal = salarioTotal;
         this.data = data;
-        this.id = -1;
     }
 
     public int getId() {
@@ -44,6 +43,23 @@ public class Salario {
 
     public LocalDate getData() {
         return data;
+    }
+
+    public void setSalarioBase(Double salarioBase) {
+        this.salarioBase = salarioBase;
+    }
+
+    public void setSalarioTotal(Double salarioTotal) {
+        this.salarioTotal = salarioTotal;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "Salario{" + "id=" + id + ", salarioBase=" + salarioBase + ", salarioTotal=" + salarioTotal + ", data=" + data + '}';
     }
     
     
