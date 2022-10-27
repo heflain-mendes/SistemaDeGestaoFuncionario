@@ -4,7 +4,7 @@
  */
 package com.mycompany.testes;
 
-import com.mycompany.DAO.SLite.CalculoEstatisticoSQLitDAO;
+import com.mycompany.DAO.SLite.CalculoEstatisticoSQLiteDAO;
 import com.mycompany.model.CalculoEstatistico;
 import java.time.LocalDate;
 import java.util.logging.Level;
@@ -17,9 +17,9 @@ import java.util.logging.Logger;
 public class TesteCalculoEstatisticoSQLiteDAO {
 
     public static void main(String[] args) {
-        CalculoEstatisticoSQLitDAO ceDAO = null;
+        CalculoEstatisticoSQLiteDAO ceDAO = null;
         try {
-            ceDAO = new CalculoEstatisticoSQLitDAO();
+            ceDAO = new CalculoEstatisticoSQLiteDAO();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

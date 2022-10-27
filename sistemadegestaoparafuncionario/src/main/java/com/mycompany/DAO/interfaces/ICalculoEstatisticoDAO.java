@@ -13,7 +13,7 @@ import java.util.List;
  * @author heflain
  */
 public interface ICalculoEstatisticoDAO {
-    public void salvar(int idFuncionario, CalculoEstatistico calculoEstatistico) throws Exception, SQLException;
+    public void salvar(CalculoEstatistico calculoEstatistico) throws Exception, SQLException;
     public void atualizar(CalculoEstatistico calculoEstatistico) throws Exception, SQLException;
-    public List<CalculoEstatistico> obterPorIdFuncionario() throws Exception, SQLException;
+    public List<CalculoEstatistico> obterTodos() throws Exception, SQLException;
 }

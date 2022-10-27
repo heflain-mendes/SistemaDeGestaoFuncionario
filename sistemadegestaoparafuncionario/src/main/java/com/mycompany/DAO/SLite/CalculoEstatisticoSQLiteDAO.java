@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -19,22 +19,21 @@ import java.util.List;
  *
  * @author heflain
  */
-public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
+public class CalculoEstatisticoSQLiteDAO implements ICalculoEstatisticoDAO {
 
-    private static CalculoEstatisticoSQLitDAO calculoEstatisticoSQLitDAO;
+    private static CalculoEstatisticoSQLiteDAO calculoEstatisticoSQLitDAO;
     
-    public static CalculoEstatisticoSQLitDAO getInstance() throws Exception{
+    public static CalculoEstatisticoSQLiteDAO getInstance() throws Exception{
         if(calculoEstatisticoSQLitDAO == null){
-            calculoEstatisticoSQLitDAO = new CalculoEstatisticoSQLitDAO();
+            calculoEstatisticoSQLitDAO = new CalculoEstatisticoSQLiteDAO();
         }
         
         return calculoEstatisticoSQLitDAO;
     }
     
-    private CalculoEstatisticoSQLitDAO() throws SQLException, Exception {
+    private CalculoEstatisticoSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS calculos_estatisticos("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-                + " id_funcionario INTEGER NOT NULL,"
                 + " data_calculo TEXT NOT NULL,"
                 + " somatorio REAL NOT NULL,"
                 + " media REAL NOT NULL,"
@@ -42,8 +41,7 @@ public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
                 + " maior_salario REAL NOT NULL,"
                 + " menor_salario REAL NOT NULL,"
                 + " qtd_salario INTEGER NOT NULL,"
-                + " coeficiente_variacao, "
-                + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)"
+                + " coeficiente_variacao "
                 + ");";
 
         try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
@@ -56,13 +54,12 @@ public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
     }
 
     @Override
-    public void salvar(int idFuncionario, CalculoEstatistico calculoEstatistico) throws Exception, SQLException {
+    public void salvar(CalculoEstatistico calculoEstatistico) throws Exception, SQLException {
         if (calculoEstatistico == null) {
             throw new Exception("O Metodo salvar da Classe CalculoEstatisticoSQLitDAO necessita que calculoEstatistico seja não nulo");
         }
 
         String sql = "INSERT INTO calculos_estatisticos ("
-                + " id_funcionario,"
                 + " data_calculo,"
                 + " somatorio,"
                 + " media,"
@@ -71,19 +68,18 @@ public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
                 + " menor_salario,"
                 + " coeficiente_variacao,"
                 + " qtd_salario)"
-                + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, idFuncionario);
-            ps.setString(2, calculoEstatistico.getData().toString());
-            ps.setDouble(3, calculoEstatistico.getSomatorio());
-            ps.setDouble(4, calculoEstatistico.getMedia());
-            ps.setDouble(5, calculoEstatistico.getDesvioPadrao());
-            ps.setDouble(6, calculoEstatistico.getMaiorSalario());
-            ps.setDouble(7, calculoEstatistico.getMenorSalario());
-            ps.setDouble(8, calculoEstatistico.getCoeficienteVariacao());
-            ps.setInt(9, calculoEstatistico.getQttSalario());
+            ps.setString(1, calculoEstatistico.getData().toString());
+            ps.setDouble(2, calculoEstatistico.getSomatorio());
+            ps.setDouble(3, calculoEstatistico.getMedia());
+            ps.setDouble(4, calculoEstatistico.getDesvioPadrao());
+            ps.setDouble(5, calculoEstatistico.getMaiorSalario());
+            ps.setDouble(6, calculoEstatistico.getMenorSalario());
+            ps.setDouble(7, calculoEstatistico.getCoeficienteVariacao());
+            ps.setInt(8, calculoEstatistico.getQttSalario());
 
             ps.executeUpdate();
 
@@ -130,7 +126,7 @@ public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
     }
 
     @Override
-    public List<CalculoEstatistico> obterPorIdFuncionario() throws Exception, SQLException {
+    public List<CalculoEstatistico> obterTodos() throws Exception, SQLException {
         String sql = "SELECT * FROM calculos_estatisticos";
 
         List<CalculoEstatistico> calculosEstatistico = new ArrayList<>();
