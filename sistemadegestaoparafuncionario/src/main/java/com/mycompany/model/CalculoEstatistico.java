@@ -21,7 +21,15 @@ public class CalculoEstatistico {
     private double coeficienteVariacao;
     private int qtdSalario;
 
-    public CalculoEstatistico(int id, LocalDate data, double somatorio, double media, double menorSalario, double maiorSalario, double desvioPadrao, double coeficienteVariacao, int qtdSalario) {
+    public CalculoEstatistico(int id,
+            LocalDate data,
+            double somatorio,
+            double media,
+            double menorSalario,
+            double maiorSalario,
+            double desvioPadrao,
+            double coeficienteVariacao,
+            int qtdSalario) {
         this.id = id;
         this.data = data;
         this.somatorio = somatorio;
@@ -33,7 +41,13 @@ public class CalculoEstatistico {
         this.qtdSalario = qtdSalario;
     }
 
-    public CalculoEstatistico(LocalDate data, double somatorio, double media, double menorSalario, double maiorSalario, double desvioPadrao, double coeficienteVariacao, int qtdSalario) {
+    public CalculoEstatistico(LocalDate data,
+            double somatorio,
+            double media, double menorSalario,
+            double maiorSalario,
+            double desvioPadrao,
+            double coeficienteVariacao,
+            int qtdSalario) {
         this.data = data;
         this.somatorio = somatorio;
         this.media = media;
@@ -112,5 +126,12 @@ public class CalculoEstatistico {
         this.qtdSalario = qtdSalario;
     }
 
+    @Override
+    public String toString() {
+        return "CalculoEstatistico{" + "id=" + id + ", data=" + data + ", somatorio=" + somatorio + ", media=" + media + ", menorSalario=" + menorSalario + ", maiorSalario=" + maiorSalario + ", desvioPadrao=" + desvioPadrao + ", coeficienteVariacao=" + coeficienteVariacao + ", qtdSalario=" + qtdSalario + '}';
+    }
+
+    
+    
     
 }

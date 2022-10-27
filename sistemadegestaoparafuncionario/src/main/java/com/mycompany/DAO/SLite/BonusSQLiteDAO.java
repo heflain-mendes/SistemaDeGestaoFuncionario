@@ -21,7 +21,17 @@ import java.util.List;
  */
 public class BonusSQLiteDAO implements IBonusDAO {
 
-    public BonusSQLiteDAO() throws SQLException, Exception {
+    private static BonusSQLiteDAO bonusSQLiteDAO;
+
+    public static IBonusDAO getInstance() throws Exception {
+        if (bonusSQLiteDAO == null) {
+            bonusSQLiteDAO = new BonusSQLiteDAO();
+        }
+
+        return bonusSQLiteDAO;
+    }
+
+    private BonusSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS bonus("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                 + " id_funcionario INTEGER NOT NULL,"
@@ -40,26 +50,22 @@ public class BonusSQLiteDAO implements IBonusDAO {
     }
 
     @Override
-    public void salvar(int idFuncionario, List<Bonus> bonus) throws Exception, SQLException {
+    public void salvar(int idFuncionario, Bonus bonus) throws Exception, SQLException {
         if (bonus == null) {
             throw new Exception("O Metodo salvar da Classe BonusSQLiteDAO necessita que bonus tenha valores validos");
-        }
-
-        if (bonus.contains(null)) {
-            throw new Exception("O Metodo salvar da Classe BonusSQLiteDAO necessita que todos os campos de bonus tenha valores validos");
         }
 
         String sql = "INSERT INTO bonus (id_funcionario, tipo, data_bonus, valor) VALUES ( ?, ?, ?, ?)";
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
-            for (Bonus b : bonus) {
-                ps.setInt(1, idFuncionario);
-                ps.setString(2, b.getTipo());
-                ps.setString(3, b.getData().toString());
-                ps.setDouble(4, b.getValor());
 
-                ps.executeUpdate();
-            }
+            ps.setInt(1, idFuncionario);
+            ps.setString(2, bonus.getTipo());
+            ps.setString(3, bonus.getData().toString());
+            ps.setDouble(4, bonus.getValor());
+
+            ps.executeUpdate();
+
         } catch (SQLException e) {
             //System.out.println(e.getMessage());
             //e.printStackTrace();
@@ -104,11 +110,11 @@ public class BonusSQLiteDAO implements IBonusDAO {
     }
 
     @Override
-    public void removerTodos(int idFuncionario) throws Exception, SQLException{
+    public void removerTodos(int idFuncionario) throws Exception, SQLException {
         String sql = "DELETE FROM bonus WHERE id_funcionario = ?";
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idFuncionario);
-          
+
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("Não foi possivel deletar salarios");

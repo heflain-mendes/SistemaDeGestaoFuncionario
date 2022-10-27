@@ -20,8 +20,18 @@ import java.util.List;
  * @author heflain
  */
 public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
+    
+    private static FuncionarioSQLiteDAO funcionarioSQLiteDAO;
+    
+    public static FuncionarioSQLiteDAO getInstance() throws Exception{
+        if(funcionarioSQLiteDAO == null){
+            funcionarioSQLiteDAO = new FuncionarioSQLiteDAO();
+        }
+        
+        return funcionarioSQLiteDAO;
+    }
 
-    public FuncionarioSQLiteDAO() throws SQLException, Exception {
+    private FuncionarioSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS funcionairos("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                 + " nome TEXT NOT NULL,"

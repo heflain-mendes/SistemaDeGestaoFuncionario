@@ -21,6 +21,16 @@ import java.util.List;
  */
 public class SalarioSQLiteDAO implements ISalarioDAO {
 
+    private static SalarioSQLiteDAO salarioSQLiteDAO;
+    
+    public static SalarioSQLiteDAO getInstance() throws Exception{
+        if(salarioSQLiteDAO == null){
+            salarioSQLiteDAO = new SalarioSQLiteDAO();
+        }
+        
+        return salarioSQLiteDAO;
+    }
+    
     public SalarioSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS salarios("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
@@ -39,7 +49,6 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
         }
     }
 
-    @Override
     public void salvar(int idFuncionario, Salario salario) throws Exception, SQLException {
         if (salario == null) {
             throw new Exception("O Metodo salvar da Classe SalarioSQLiteDAO necessita que bonus tenha valores validos");

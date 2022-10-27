@@ -16,7 +16,6 @@ public class SQLiteConnection {
     public static Connection getConexao() throws Exception {
         String url = "jdbc:sqlite:database_funcionario.db";
         try {
-//            Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection(url);
         } catch (SQLException e) {
             throw new Exception("Problema ao abrir banco de dados SQLite");

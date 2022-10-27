@@ -20,8 +20,18 @@ import java.util.List;
  * @author heflain
  */
 public class FaltaSQLiteDAO implements IFaltaDAO {
+    
+    private static FaltaSQLiteDAO faltaSQLiteDAO;
+    
+    public static FaltaSQLiteDAO getInstance() throws Exception{
+        if(faltaSQLiteDAO == null){
+            faltaSQLiteDAO = new FaltaSQLiteDAO();
+        }
+        
+        return faltaSQLiteDAO;
+    }
 
-    public FaltaSQLiteDAO() throws SQLException, Exception {
+    private FaltaSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS faltas("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                 + " id_funcionario INTEGER NOT NULL,"

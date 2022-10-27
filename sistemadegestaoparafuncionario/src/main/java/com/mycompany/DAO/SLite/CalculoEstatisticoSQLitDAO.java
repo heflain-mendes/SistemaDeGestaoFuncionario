@@ -21,7 +21,17 @@ import java.util.List;
  */
 public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
 
-    public CalculoEstatisticoSQLitDAO() throws SQLException, Exception {
+    private static CalculoEstatisticoSQLitDAO calculoEstatisticoSQLitDAO;
+    
+    public static CalculoEstatisticoSQLitDAO getInstance() throws Exception{
+        if(calculoEstatisticoSQLitDAO == null){
+            calculoEstatisticoSQLitDAO = new CalculoEstatisticoSQLitDAO();
+        }
+        
+        return calculoEstatisticoSQLitDAO;
+    }
+    
+    private CalculoEstatisticoSQLitDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS calculos_estatisticos("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                 + " id_funcionario INTEGER NOT NULL,"
@@ -32,7 +42,7 @@ public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
                 + " maior_salario REAL NOT NULL,"
                 + " menor_salario REAL NOT NULL,"
                 + " qtd_salario INTEGER NOT NULL,"
-                + " coeficiente_variacao"
+                + " coeficiente_variacao, "
                 + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)"
                 + ");";
 
@@ -59,8 +69,8 @@ public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
                 + " desvio_padrao,"
                 + " maior_salario,"
                 + " menor_salario,"
-                + " coeficiente_variacao),"
-                + " qtd_salario"
+                + " coeficiente_variacao,"
+                + " qtd_salario)"
                 + " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -78,20 +88,22 @@ public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
-            //e.printStackTrace();
+            System.out.println(e.getMessage());
+            e.printStackTrace();
             throw new SQLException("Não foi possivel salvar informações sobre calculos estatistico");
         }
     }
 
     @Override
     public void atualizar(CalculoEstatistico calculoEstatistico) throws Exception, SQLException {
+        System.out.println(calculoEstatistico.toString());
         if (calculoEstatistico == null) {
             throw new Exception("O Metodo atualizar da Classe CalculoEstatisticoSQLitDAO necessita que calculoEstatistico não seja null");
         }
 
-        String sql = "UPDATE calculos_estatisticos"
-                + " SET data_calculo = ? ,"
+            String sql = "UPDATE calculos_estatisticos"
+                + " SET "
+                + " data_calculo = ? ,"
                 + " somatorio = ? ,"
                 + " media = ? ,"
                 + " desvio_padrao = ? ,"
@@ -110,6 +122,7 @@ public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
             ps.setDouble(6, calculoEstatistico.getMenorSalario());
             ps.setDouble(7, calculoEstatistico.getCoeficienteVariacao());
             ps.setInt(8, calculoEstatistico.getQttSalario());
+            ps.setInt(9, calculoEstatistico.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("Não foi possivel atualizar informações da calculo estatistico");
@@ -128,8 +141,8 @@ public class CalculoEstatisticoSQLitDAO implements ICalculoEstatisticoDAO {
             while (rs.next()) {
                 CalculoEstatistico ce = new CalculoEstatistico(
                         rs.getInt("id"),
-                        LocalDate.parse(rs.getString("data_falta")),
-                        rs.getDouble("somatoria"),
+                        LocalDate.parse(rs.getString("data_calculo")),
+                        rs.getDouble("somatorio"),
                         rs.getDouble("media"),
                         rs.getDouble("menor_salario"),
                         rs.getDouble("maior_salario"),
