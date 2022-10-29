@@ -129,7 +129,7 @@ public class PrincipalView extends javax.swing.JFrame {
         return miBuscarFuncionario;
     }
 
-    public JMenuItem getMiCadastraFuncionario() {
+    public JMenuItem getMiCadastrarFuncionario() {
         return miCadastraFuncionario;
     }
 
