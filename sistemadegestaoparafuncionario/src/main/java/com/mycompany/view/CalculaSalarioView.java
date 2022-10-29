@@ -13,12 +13,12 @@ import javax.swing.JTextField;
  *
  * @author heflain
  */
-public class CalcularSalarioView extends javax.swing.JFrame {
+public class CalculaSalarioView extends javax.swing.JFrame {
 
     /**
      * Creates new form CalcularSalarioView
      */
-    public CalcularSalarioView() {
+    public CalculaSalarioView() {
         initComponents();
         
         this.setResizable(false);
@@ -187,20 +187,21 @@ public class CalcularSalarioView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CalcularSalarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalculaSalarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CalcularSalarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalculaSalarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CalcularSalarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalculaSalarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CalcularSalarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CalculaSalarioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CalcularSalarioView().setVisible(true);
+                new CalculaSalarioView().setVisible(true);
             }
         });
     }
