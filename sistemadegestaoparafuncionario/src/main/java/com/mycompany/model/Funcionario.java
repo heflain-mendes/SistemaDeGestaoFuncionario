@@ -110,4 +110,11 @@ public class Funcionario {
     public void setSalarios(List<Salario> salarios) {
         this.salarios = salarios;
     }
+    
+    public void getfaltaPelaData(LocalDate date){
+        for(Falta f : this.faltas){
+            if(f.getDate().equals(f))
+                return f;
+        }
+    }
 }
