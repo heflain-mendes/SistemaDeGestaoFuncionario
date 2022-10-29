@@ -17,8 +17,7 @@ public class PrincipalView extends javax.swing.JFrame {
      */
     public PrincipalView() {
         initComponents();
-        
-        this.setResizable(false);
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**

@@ -10,4 +10,19 @@ package com.mycompany.preseter;
  */
 public class CadastraFuncionarioPresenter {
     
+    private static CadastraFuncionarioPresenter instance = null;
+    
+    private CadastraFuncionarioPresenter() {
+    }
+    
+    private CadastraFuncionarioPresenter getInstance(){
+        if(instance == null){
+            instance = new CadastraFuncionarioPresenter();
+        }
+        
+        return instance
+    }
+
+  
+    
 }

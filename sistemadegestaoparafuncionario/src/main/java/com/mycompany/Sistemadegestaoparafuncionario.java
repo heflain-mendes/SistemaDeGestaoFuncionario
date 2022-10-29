@@ -5,6 +5,9 @@
 
 package com.mycompany;
 
+import com.mycompany.preseter.PrincipalPresenter;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author heflain
@@ -12,6 +15,10 @@ package com.mycompany;
 public class Sistemadegestaoparafuncionario {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        try {
+            PrincipalPresenter.getInstance();
+        } catch (Exception e) {
+              JOptionPane.showMessageDialog(null,e.getMessage());
+        }
     }
 }
