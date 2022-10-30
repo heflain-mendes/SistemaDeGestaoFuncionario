@@ -111,10 +111,13 @@ public class Funcionario {
         this.salarios = salarios;
     }
     
-    public void getfaltaPelaData(LocalDate date){
+    public Falta getfaltaPelaData(LocalDate date){
         for(Falta f : this.faltas){
-            if(f.getDate().equals(f))
+            if(f.getDate().getMonth().equals(date.getMonth()) &&
+               f.getDate().getMonth().equals(date.getMonth()))
                 return f;
         }
+        
+        return null;
     }
 }

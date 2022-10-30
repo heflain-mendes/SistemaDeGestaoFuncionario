@@ -5,7 +5,6 @@
 package com.mycompany.business.calculobonus;
 
 import com.mycompany.model.Bonus;
-import com.mycompany.model.Falta;
 import com.mycompany.model.Funcionario;
 import java.time.LocalDate;
 
@@ -13,29 +12,25 @@ import java.time.LocalDate;
  *
  * @author heflain
  */
-public class BonusAssiduidade implements ICalculoBonus{
+public class BonusDistanciaDoTrabalho implements ICalculoBonus{
 
     @Override
     public Bonus calcular(Funcionario funcionario, LocalDate data) {
-        Falta falta = funcionario.getfaltaPelaData(data);
-        
         if(funcionario == null || data == null){
             throw new NullPointerException("funcionario ou data ");
         }
         
-        if(falta == null){
-            return null;
-        }
-        
-        int qtdFalta = funcionario.getfaltaPelaData(data).getQuantidade();
+        double distancia = funcionario.getDistanciaDoTrabalho();
         double valor;
         
-        if(qtdFalta == 0){
+        if(distancia >= 30){
+            valor = funcionario.getSalarioBaseAtual() * 0.1;
+        } else if(distancia >= 25){
+            valor = funcionario.getSalarioBaseAtual() * 0.08;
+        }else if(distancia >= 20){
+            valor = funcionario.getSalarioBaseAtual() * 0.06;
+        }else if(distancia >= 15){
             valor = funcionario.getSalarioBaseAtual() * 0.05;
-        }else if(qtdFalta <= 3){
-            valor = funcionario.getSalarioBaseAtual() * 0.03;
-        }else if(qtdFalta <= 5){
-            valor = funcionario.getSalarioBaseAtual() * 0.01;
         }else{
             valor = 0;
         }
