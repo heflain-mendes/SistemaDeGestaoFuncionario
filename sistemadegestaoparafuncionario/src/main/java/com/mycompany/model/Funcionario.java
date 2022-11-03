@@ -12,13 +12,13 @@ import java.util.List;
  * @author heflain
  */
 public class Funcionario {
-    private int id;
+    private final int id;
     private String nome;
     private String cargo;
     private LocalDate dataInicioNaEmpresa;
     private double salarioBaseAtual;
-    private double distanciaDoTrabalho;
-    private boolean funcionairoDoMes;
+    private final double distanciaDoTrabalho;
+    private final boolean funcionairoDoMes;
 
     private List<Falta> faltas;
     private List<Bonus> bonus;
@@ -26,15 +26,6 @@ public class Funcionario {
 
     public Funcionario(int id,String nome, String cargo, LocalDate dataInicioNaEmpresa, double salarioBaseAtual, double distanciaDoTrabalho, boolean funcionairoDoMes) {
         this.id = id;
-        this.nome = nome;
-        this.cargo = cargo;
-        this.dataInicioNaEmpresa = dataInicioNaEmpresa;
-        this.salarioBaseAtual = salarioBaseAtual;
-        this.distanciaDoTrabalho = distanciaDoTrabalho;
-        this.funcionairoDoMes = funcionairoDoMes;
-    }
-
-    public Funcionario(String nome, String cargo, LocalDate dataInicioNaEmpresa, double salarioBaseAtual, double distanciaDoTrabalho, boolean funcionairoDoMes) {
         this.nome = nome;
         this.cargo = cargo;
         this.dataInicioNaEmpresa = dataInicioNaEmpresa;
@@ -111,10 +102,10 @@ public class Funcionario {
         this.salarios = salarios;
     }
     
-    public void getfaltaPelaData(LocalDate date){
-        for(Falta f : this.faltas){
-            if(f.getDate().equals(f))
-                return f;
-        }
-    }
+//    public void getfaltaPelaData(LocalDate date){
+//        for(Falta f : this.faltas){
+//            if(f.getDate().equals(f))
+//                return f;
+//        }
+//    }
 }

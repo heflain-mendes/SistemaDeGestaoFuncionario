@@ -6,6 +6,7 @@ package com.mycompany.business.calculobonus;
 
 import com.mycompany.model.Bonus;
 import com.mycompany.model.Funcionario;
+import java.time.LocalDate;
 
 /**
  *
@@ -14,8 +15,8 @@ import com.mycompany.model.Funcionario;
 public class BonusAssiduidade implements ICalculoBonus{
 
     @Override
-    public Bonus calcular(Funcionario funcionario, Object data) {
-        funcionario.getFaltas().
+    public Bonus calcular(Funcionario funcionario, LocalDate data) {
+        funcionario.getFaltas();
+        return null;
     }
-    
 }

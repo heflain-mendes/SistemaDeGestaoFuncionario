@@ -40,6 +40,40 @@ public class CadastraFuncionarioPresenter {
         this.state = state;
     }
 
+    public void limparCampos() {
+        getView().getTxtNome().setText("");
+        getView().getTxtIdade().setText("");
+        getView().getTxtSalario().setText("");
+        getView().getTxtAdmissao().setText("");
+        getView().getCbBonus().setSelectedIndex(-1);
+        getView().getCbCargo().setSelectedIndex(-1);
+        getView().getCbFuncionarioDoMes().setSelected(false);
+    }
+
+    private boolean camposEstaoVazios() {
+        return view.getTxtNome().getText().equals("")
+                || view.getTxtSalario().getText().equals("")
+                || view.getTxtIdade().getText().equals("")
+                || view.getTxtAdmissao().getText().equals("")
+                || view.getCbCargo().getSelectedIndex() == -1;
+    }
+
+    private void setFuncionario() {
+
+        String cargo = String.valueOf(view.getCbCargo().getSelectedItem());
+        Double salarioBaseAtual = Double.valueOf(view.getTxtSalario().getText());
+//        if (cargo.equalsIgnoreCase("outro")) {
+//            cargo = view.getTfdOutro().getText();
+//        }
+
+        funcionario.setCargo(cargo);
+        funcionario.setNome(view.getTxtNome().getText());     
+//        funcionario.setDataInicioNaEmpresa(view.getTxtAdmissao().getText());
+        funcionario.setSalarioBaseAtual(salarioBaseAtual);
+        
+
+    }
+
     public CadastraVisualizarFuncionarioView getView() {
         return view;
     }
