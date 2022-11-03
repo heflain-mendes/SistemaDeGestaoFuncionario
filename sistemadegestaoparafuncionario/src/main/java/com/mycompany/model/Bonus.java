@@ -14,18 +14,21 @@ public class Bonus {
     private int id;
     private String tipo;
     private double valor;
+    private String cargo;
     private LocalDate data;
 
-    public Bonus(int id, String tipo, double valor, LocalDate data) {
+    public Bonus(int id, String tipo, double valor, String cargo, LocalDate data) {
         this.id = id;
         this.tipo = tipo;
         this.valor = valor;
         this.data = data;
+        this.cargo = cargo;
     }
 
-    public Bonus(String tipo, double valor, LocalDate data) {
+    public Bonus(String tipo, double valor, String cargo, LocalDate data) {
         this.tipo = tipo;
         this.valor = valor;
+        this.cargo = cargo;
         this.data = data;
     }
 
@@ -44,4 +47,10 @@ public class Bonus {
     public LocalDate getData() {
         return data;
     }
+
+    public String getCargo() {
+        return cargo;
+    }
+    
+    
 }

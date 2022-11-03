@@ -12,7 +12,7 @@ import java.util.List;
  * @author heflain
  */
 public class Funcionario {
-    private int id;
+    public int id;
     private String nome;
     private String cargo;
     private LocalDate dataInicioNaEmpresa;
@@ -111,10 +111,13 @@ public class Funcionario {
         this.salarios = salarios;
     }
     
-    public void getfaltaPelaData(LocalDate date){
+    public Falta getfaltaPelaData(LocalDate date){
         for(Falta f : this.faltas){
-            if(f.getDate().equals(f))
+            if(f.getDate().getMonth().equals(date.getMonth()) &&
+               f.getDate().getYear() == date.getYear())
                 return f;
         }
+        
+        return null;
     }
 }
