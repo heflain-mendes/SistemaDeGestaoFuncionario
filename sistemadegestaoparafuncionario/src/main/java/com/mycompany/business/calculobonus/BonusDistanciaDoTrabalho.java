@@ -36,7 +36,7 @@ public class BonusDistanciaDoTrabalho implements ICalculoBonus{
         }
         
         if(valor != 0){
-            return new Bonus("distancia do trabalho", valor, data);
+            return new Bonus("distancia do trabalho", valor,funcionario.getCargo(), data);
         }
         
         return null;

@@ -21,6 +21,6 @@ public class BonusAleatorio implements ICalculoBonus {
             throw new NullPointerException("funcionario ou data ");
         }
         double valor = new Random().nextDouble() * funcionario.getSalarioBaseAtual();
-        return new Bonus("Aleatorio",  valor, data);
+        return new Bonus("Aleatorio",  valor,funcionario.getCargo(), data);
     }
 }

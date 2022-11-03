@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.DAO.SLite;
+package com.mycompany.dao.sqlite;
 
-import com.mycompany.DAO.interfaces.ICalculoEstatisticoDAO;
+import com.mycompany.dao.interfaces.ICalculoEstatisticoDAO;
 import com.mycompany.model.CalculoEstatistico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,18 +20,8 @@ import java.util.List;
  * @author heflain
  */
 public class CalculoEstatisticoSQLiteDAO implements ICalculoEstatisticoDAO {
-
-    private static CalculoEstatisticoSQLiteDAO calculoEstatisticoSQLitDAO;
     
-    public static CalculoEstatisticoSQLiteDAO getInstance() throws Exception{
-        if(calculoEstatisticoSQLitDAO == null){
-            calculoEstatisticoSQLitDAO = new CalculoEstatisticoSQLiteDAO();
-        }
-        
-        return calculoEstatisticoSQLitDAO;
-    }
-    
-    private CalculoEstatisticoSQLiteDAO() throws SQLException, Exception {
+    public CalculoEstatisticoSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS calculos_estatisticos("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                 + " data_calculo TEXT NOT NULL,"

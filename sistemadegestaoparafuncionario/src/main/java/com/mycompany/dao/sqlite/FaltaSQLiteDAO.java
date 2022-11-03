@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.DAO.SLite;
+package com.mycompany.dao.sqlite;
 
-import com.mycompany.DAO.interfaces.IFaltaDAO;
+import com.mycompany.dao.interfaces.IFaltaDAO;
 import com.mycompany.model.Falta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,18 +20,8 @@ import java.util.List;
  * @author heflain
  */
 public class FaltaSQLiteDAO implements IFaltaDAO {
-    
-    private static FaltaSQLiteDAO faltaSQLiteDAO;
-    
-    public static FaltaSQLiteDAO getInstance() throws Exception{
-        if(faltaSQLiteDAO == null){
-            faltaSQLiteDAO = new FaltaSQLiteDAO();
-        }
-        
-        return faltaSQLiteDAO;
-    }
 
-    private FaltaSQLiteDAO() throws SQLException, Exception {
+    public FaltaSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS faltas("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                 + " id_funcionario INTEGER NOT NULL,"

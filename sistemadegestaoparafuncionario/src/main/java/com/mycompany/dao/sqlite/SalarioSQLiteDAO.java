@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.DAO.SLite;
+package com.mycompany.dao.sqlite;
 
-import com.mycompany.DAO.interfaces.ISalarioDAO;
+import com.mycompany.dao.interfaces.ISalarioDAO;
 import com.mycompany.model.Salario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,16 +20,6 @@ import java.util.List;
  * @author heflain
  */
 public class SalarioSQLiteDAO implements ISalarioDAO {
-
-    private static SalarioSQLiteDAO salarioSQLiteDAO;
-    
-    public static SalarioSQLiteDAO getInstance() throws Exception{
-        if(salarioSQLiteDAO == null){
-            salarioSQLiteDAO = new SalarioSQLiteDAO();
-        }
-        
-        return salarioSQLiteDAO;
-    }
     
     public SalarioSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS salarios("

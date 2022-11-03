@@ -5,9 +5,11 @@
 package com.mycompany.service;
 
 import com.mycompany.business.calculosestatistico.ExecutaCalculoEstatistico;
+import com.mycompany.dao.DAOSingleton;
 import com.mycompany.model.CalculoEstatistico;
 import com.mycompany.model.Funcionario;
 import com.mycompany.model.Salario;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,17 +19,13 @@ import java.util.List;
  */
 public class CalculoEstatisticoService {
     private ExecutaCalculoEstatistico calculoEstatistico;
-    private CalculaSalarioService calculaSalarioService;
 
-    public CalculoEstatisticoService(ExecutaCalculoEstatistico calculoEstatistico, CalculaSalarioService calculaSalarioService) {
-        this.calculoEstatistico = calculoEstatistico;
-        this.calculaSalarioService = calculaSalarioService;
+    public CalculoEstatisticoService(ExecutaCalculoEstatistico executaCalculoEstatistico) {
+        this.calculoEstatistico = executaCalculoEstatistico;
     }
     
-    public void calcular(List<Funcionario> funcionarios, LocalDate data){
-        List<Salario> salarios = this.calculaSalarioService.calcular(funcionarios, data);
+    public void calcular(List<Salario> salarios, LocalDate data) throws Exception, SQLException{
         CalculoEstatistico calculoEstatistico = this.calculoEstatistico.calcular(salarios, data);
+        DAOSingleton.getInstance().getCalculoEstatisticoDAO().salvar(calculoEstatistico);
     }
-    
-    
 }

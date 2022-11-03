@@ -37,6 +37,6 @@ public class BonusTempoServico implements ICalculoBonus{
             valor = 0;
         }
         
-        return new Bonus("tempo de serviço", valor, data);
+        return new Bonus("tempo de serviço", valor,funcionario.getCargo(), data);
     }
 }

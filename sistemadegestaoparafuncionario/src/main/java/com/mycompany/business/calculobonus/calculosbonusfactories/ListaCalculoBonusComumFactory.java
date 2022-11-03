@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.factories.calculosbonus;
+package com.mycompany.business.calculobonus.calculosbonusfactories;
 
 import com.mycompany.business.calculobonus.BonusAleatorio;
 import com.mycompany.business.calculobonus.BonusAssiduidade;
@@ -16,7 +16,7 @@ import com.mycompany.business.calculobonus.ICalculoBonus;
  *
  * @author heflain
  */
-public class ListaCalculoBonusPadraoFactory implements IListaCalculoBonusFactory{
+public class ListaCalculoBonusComumFactory implements IListaCalculoBonusFactory{
 
     @Override
     public List<ICalculoBonus> obterLista() {

@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.DAO.SLite;
+package com.mycompany.dao.sqlite;
 
-import com.mycompany.DAO.interfaces.IFuncionarioDAO;
+import com.mycompany.dao.interfaces.IFuncionarioDAO;
 import com.mycompany.model.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,17 +21,7 @@ import java.util.List;
  */
 public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
     
-    private static FuncionarioSQLiteDAO funcionarioSQLiteDAO;
-    
-    public static FuncionarioSQLiteDAO getInstance() throws Exception{
-        if(funcionarioSQLiteDAO == null){
-            funcionarioSQLiteDAO = new FuncionarioSQLiteDAO();
-        }
-        
-        return funcionarioSQLiteDAO;
-    }
-
-    private FuncionarioSQLiteDAO() throws SQLException, Exception {
+    public FuncionarioSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS funcionairos("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                 + " nome TEXT NOT NULL,"

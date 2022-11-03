@@ -4,6 +4,7 @@
  */
 package com.mycompany.business.calculobonus;
 
+import com.mycompany.business.calculobonus.calculosbonusfactories.ListaCalculoBonusComumFactory;
 import com.mycompany.model.Bonus;
 import com.mycompany.model.Funcionario;
 import java.time.LocalDate;
@@ -19,10 +20,9 @@ public class ExecutaCalculoBonus {
 
     public ExecutaCalculoBonus(List<ICalculoBonus> calculosBonus) {
         if(calculosBonus == null){
-            throw new NullPointerException("passe uma parametro não nulo para  CalculaBonusService");
+            return;
         }
         this.calculosBonus = calculosBonus;
-        
     }
     
     public List<Bonus> calcular(Funcionario funcionario, LocalDate data){
@@ -39,5 +39,4 @@ public class ExecutaCalculoBonus {
         
         return listBonus;
     }
-    
 }

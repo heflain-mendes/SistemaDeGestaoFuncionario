@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.DAO.SLite;
+package com.mycompany.dao.sqlite;
 
-import com.mycompany.DAO.interfaces.IBonusDAO;
+import com.mycompany.dao.interfaces.IBonusDAO;
 import com.mycompany.model.Bonus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,23 +21,14 @@ import java.util.List;
  */
 public class BonusSQLiteDAO implements IBonusDAO {
 
-    private static BonusSQLiteDAO bonusSQLiteDAO;
-
-    public static IBonusDAO getInstance() throws Exception {
-        if (bonusSQLiteDAO == null) {
-            bonusSQLiteDAO = new BonusSQLiteDAO();
-        }
-
-        return bonusSQLiteDAO;
-    }
-
-    private BonusSQLiteDAO() throws SQLException, Exception {
+    public BonusSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS bonus("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                 + " id_funcionario INTEGER NOT NULL,"
                 + " tipo TEXT NOT NULL,"
                 + " data_bonus TEXT NOT NULL,"
                 + " valor REAL NOT NULL,"
+                + " cargo TEXT NOT NULL"
                 + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)"
                 + ")";
 
@@ -55,7 +46,7 @@ public class BonusSQLiteDAO implements IBonusDAO {
             throw new Exception("O Metodo salvar da Classe BonusSQLiteDAO necessita que bonus tenha valores validos");
         }
 
-        String sql = "INSERT INTO bonus (id_funcionario, tipo, data_bonus, valor) VALUES ( ?, ?, ?, ?)";
+        String sql = "INSERT INTO bonus (id_funcionario, tipo, data_bonus, valor, cargo) VALUES (?, ?, ?, ?, ?)";
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -63,6 +54,7 @@ public class BonusSQLiteDAO implements IBonusDAO {
             ps.setString(2, bonus.getTipo());
             ps.setString(3, bonus.getData().toString());
             ps.setDouble(4, bonus.getValor());
+            ps.setString(5, bonus.getCargo());
 
             ps.executeUpdate();
 
@@ -85,6 +77,7 @@ public class BonusSQLiteDAO implements IBonusDAO {
                 Bonus b = new Bonus(rs.getInt("id"),
                         rs.getString("tipo"),
                         rs.getDouble("valor"),
+                        rs.getString("cargo"),
                         LocalDate.parse(rs.getString("data_bonus")));
                 bonus.add(b);
             }

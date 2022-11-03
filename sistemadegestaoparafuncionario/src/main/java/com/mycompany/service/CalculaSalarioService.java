@@ -8,9 +8,10 @@ import com.mycompany.model.Bonus;
 import com.mycompany.model.Funcionario;
 import com.mycompany.model.Salario;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import com.mycompany.business.calculosalario.ICalculoSalario;
+import com.mycompany.dao.DAOSingleton;
+import java.sql.SQLException;
 
 /**
  *
@@ -18,22 +19,14 @@ import com.mycompany.business.calculosalario.ICalculoSalario;
  */
 public class CalculaSalarioService {
     private ICalculoSalario calculoSalario;
-    private CalculaBonusService calculaBonusService;
 
-    public CalculaSalarioService(ICalculoSalario calculoSalario, CalculaBonusService calculaBonusService) {
+    public CalculaSalarioService(ICalculoSalario calculoSalario) {
         this.calculoSalario = calculoSalario;
-        this.calculaBonusService = calculaBonusService;
     }
     
-    public List<Salario> calcular(List<Funcionario> funcionarios, LocalDate data){
-        List<Bonus> listaBonus;
-        List<Salario> salarios = new ArrayList<>();
-        for(Funcionario funcionario : funcionarios){
-            listaBonus = calculaBonusService.calcular(funcionario, data);
-            
-            salarios.add(calculoSalario.calcular(funcionario, data, listaBonus));
-        }
-        
-        return salarios;
+    public Salario calcular(Funcionario funcionario, List<Bonus> listaBonus, LocalDate data) throws Exception, SQLException{
+        Salario salario = calculoSalario.calcular(funcionario, data, listaBonus);
+        DAOSingleton.getInstance().getSalarioDAO().salvar(funcionario.getId(), salario);
+        return salario;
     }
 }
