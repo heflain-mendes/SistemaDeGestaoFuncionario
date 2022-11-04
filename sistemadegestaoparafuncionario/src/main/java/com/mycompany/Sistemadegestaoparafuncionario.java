@@ -7,8 +7,10 @@ package com.mycompany;
 
 import com.mycompany.dao.DAOSingleton;
 import com.mycompany.dao.factory.DAOSQLiteFactory;
-import com.mycompany.preseter.PrincipalPresenter;
+import com.mycompany.model.Funcionario;
+import com.mycompany.preseter.FuncionarioPresenter;
 import io.github.cdimascio.dotenv.Dotenv;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,9 +22,11 @@ public class Sistemadegestaoparafuncionario {
     public static void main(String[] args) {
         try {
             configuracaoInicial();
-            PrincipalPresenter.getInstance();
+            Funcionario funcionario = new Funcionario("Heflain", 0, 0, 22, LocalDate.now(), 500.0, 3, false  );
+            new FuncionarioPresenter(null);
         } catch (Exception e) {
-              JOptionPane.showMessageDialog(null,e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,e.getMessage());
         }
     }
     
@@ -30,7 +34,7 @@ public class Sistemadegestaoparafuncionario {
         Dotenv dotenv = Dotenv.load();
 
         String bancoDados = dotenv.get("BANCO_DE_DADOS");
-        if(!"SQLite".equals(bancoDados)){
+        if("SQLite".equals(bancoDados)){
             try {
                 DAOSingleton.configureInstance(new DAOSQLiteFactory());
             } catch (Exception ex) {
@@ -39,14 +43,8 @@ public class Sistemadegestaoparafuncionario {
                 "Erro no banco de dados",
                 JOptionPane.ERROR_MESSAGE);
             }
+        }else{
+            System.out.println("não foi configurado");
         }
-        
-        String msg = "O sistema não é capaz de salvar no formato ".concat(bancoDados);
-        String title = "Erro no banco de dados";
-        
-        JOptionPane.showMessageDialog(null, 
-                msg, 
-                title, 
-                JOptionPane.ERROR_MESSAGE);
     }
 }

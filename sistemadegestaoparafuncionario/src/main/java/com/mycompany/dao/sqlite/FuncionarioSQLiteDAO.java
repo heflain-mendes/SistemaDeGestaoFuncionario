@@ -20,46 +20,49 @@ import java.util.List;
  * @author heflain
  */
 public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
-    
+
     public FuncionarioSQLiteDAO() throws SQLException, Exception {
-        String sql = "CREATE TABLE IF NOT EXISTS funcionairos("
+        String sql = "CREATE TABLE IF NOT EXISTS funcionarios("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
                 + " nome TEXT NOT NULL,"
-                + " cargo TEXT NOT NULL,"
+                + " cargo INTEGER NOT NULL,"
+                + " bonus_honra INTEGER NOT NULL,"
+                + " idade INTEGER NOT NULL, "
                 + " data_inicio TEXT NOT NULL,"
                 + " salario_base REAL NOT NULL,"
                 + " distancia_trabalho REAL NOT NULL,"
                 + " funcionario_mes INTEGER NOT NULL"
                 + ")";
-        
-        try(Statement st = SQLiteConnection.getConexao().createStatement()){
+
+        try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
             st.execute(sql);
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             //System.out.println(ex.getMessage());
             throw new SQLException("Não foi possivel criar a tabela funcionarios");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new Exception("Não foi possivel fazer conexao com o bando de dados SQLite");
-        } 
-        
+        }
+
     }
 
     @Override
-    public void salvar(Funcionario funcionario) throws Exception, SQLException {
+    public Funcionario salvar(Funcionario funcionario) throws Exception, SQLException {
 
         if (funcionario == null) {
             throw new Exception("O Metodo salvar da Classe FuncionarioSQLiteDAO necessita que funcionario tenha valores validos");
         }
 
-        String sql = "INSERT INTO funcionairos (nome, cargo, data_inicio, salario_base, distancia_trabalho, funcionario_mes) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionarios (nome, cargo, bonus_honra, idade, data_inicio, salario_base, distancia_trabalho, funcionario_mes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, funcionario.getNome());
-            ps.setString(2, funcionario.getCargo());
-            ps.setString(3, funcionario.getDataInicioNaEmpresa().toString());
-            ps.setDouble(4, funcionario.getSalarioBaseAtual());
-            ps.setDouble(5, funcionario.getDistanciaDoTrabalho());
-            ps.setBoolean(6, funcionario.IsFuncionairoDoMes());
+            ps.setInt(2, funcionario.getCargo());
+            ps.setInt(3, funcionario.getBonusHonra());
+            ps.setInt(4, funcionario.getIdade());
+            ps.setString(5, funcionario.getDataInicioNaEmpresa().toString());
+            ps.setDouble(6, funcionario.getSalarioBaseAtual());
+            ps.setDouble(7, funcionario.getDistanciaDoTrabalho());
+            ps.setBoolean(8, funcionario.IsFuncionairoDoMes());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -67,6 +70,37 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
             //e.printStackTrace();
             throw new SQLException("Não foi possivel salvar informações do funcionario: " + funcionario.getNome() + " na tabela funcionario");
         }
+
+        return obterUltimoFuncionarioInserido();
+    }
+
+    private Funcionario obterUltimoFuncionarioInserido() throws SQLException, Exception {
+        String sql = "SELECT * FROM funcionarios ORDER BY id DESC LIMIT 1";
+
+        try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql);  ResultSet rs = ps.executeQuery()) {
+
+            rs.next();
+
+            Funcionario f = new Funcionario(rs.getInt("id"),
+                    rs.getString("nome"),
+                    rs.getInt("cargo"),
+                    rs.getInt("bonus_honra"),
+                    rs.getInt("idade"),
+                    LocalDate.parse(rs.getString("data_inicio")),
+                    rs.getDouble("salario_base"),
+                    rs.getDouble("distancia_trabalho"),
+                    rs.getBoolean("funcionario_mes")
+            );
+
+            return f;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            new SQLException("Não foi possivel resgatar o ultimo funcionario inserido");
+
+        }
+
+        return null;
     }
 
     @Override
@@ -75,16 +109,18 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
             throw new Exception("O Metodo atualizar da Classe FuncionarioSQLiteDAO necessita que funcionario tenha valores validos");
         }
 
-        String sql = "UPDATE funcionairos SET nome = ? , cargo = ? , data_inicio = ? , salario_base = ? , distancia_trabalho = ? , funcionario_mes = ? WHERE id = ?";
+        String sql = "UPDATE funcionarios SET nome = ? , cargo = ? , bonus_honra = ?, idade = ?, data_inicio = ? , salario_base = ? , distancia_trabalho = ? , funcionario_mes = ? WHERE id = ?";
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, funcionario.getNome());
-            ps.setString(2, funcionario.getCargo());
-            ps.setString(3, funcionario.getDataInicioNaEmpresa().toString());
-            ps.setDouble(4, funcionario.getSalarioBaseAtual());
-            ps.setDouble(5, funcionario.getDistanciaDoTrabalho());
-            ps.setBoolean(6, funcionario.IsFuncionairoDoMes());
-            ps.setInt(7, funcionario.getId());
+            ps.setInt(2, funcionario.getCargo());
+            ps.setInt(3, funcionario.getBonusHonra());
+            ps.setInt(4, funcionario.getIdade());
+            ps.setString(5, funcionario.getDataInicioNaEmpresa().toString());
+            ps.setDouble(6, funcionario.getSalarioBaseAtual());
+            ps.setDouble(7, funcionario.getDistanciaDoTrabalho());
+            ps.setBoolean(8, funcionario.IsFuncionairoDoMes());
+            ps.setInt(9, funcionario.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException("Não foi possivel atualizar informações do funcionario: " + funcionario.getNome() + " na tabela funcionario");
@@ -97,7 +133,7 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
             throw new Exception("O Metodo delete da Classe FuncionarioSQLiteDAO necessita que funcionario tenha valores validos");
         }
 
-        String sql = "DELETE FROM funcionairos WHERE id = ?";
+        String sql = "DELETE FROM funcionarios WHERE id = ?";
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, funcionario.getId());
             ps.executeUpdate();
@@ -108,17 +144,20 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
 
     @Override
     public List<Funcionario> obterTodos() throws Exception {
-        String sql = "SELECT * FROM funcionairos";
+        String sql = "SELECT * FROM funcionarios";
         List<Funcionario> funcionarios = new ArrayList<>();
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql);  ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Funcionario f = new Funcionario(rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getString("cargo"),
+                        rs.getInt("cargo"),
+                        rs.getInt("bonus_honra"),
+                        rs.getInt("idade"),
                         LocalDate.parse(rs.getString("data_inicio")),
                         rs.getDouble("salario_base"),
                         rs.getDouble("distancia_trabalho"),
-                        rs.getBoolean("funcionario_mes"));
+                        rs.getBoolean("funcionario_mes")
+                );
                 funcionarios.add(f);
             }
             return funcionarios;

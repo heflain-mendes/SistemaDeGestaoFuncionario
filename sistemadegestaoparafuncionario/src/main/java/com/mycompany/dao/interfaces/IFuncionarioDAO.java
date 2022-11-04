@@ -13,7 +13,7 @@ import java.util.List;
  * @author heflain
  */
 public interface IFuncionarioDAO {
-    public void salvar (Funcionario funcionario) throws Exception, SQLException;
+    public Funcionario salvar (Funcionario funcionario) throws Exception, SQLException;
     public void atualizar(Funcionario funcionario) throws Exception, SQLException;
     public void remover(Funcionario funcionario) throws Exception, SQLException;
     public List<Funcionario> obterTodos() throws Exception, SQLException;

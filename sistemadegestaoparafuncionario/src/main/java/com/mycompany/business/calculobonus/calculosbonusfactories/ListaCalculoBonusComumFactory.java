@@ -4,9 +4,10 @@
  */
 package com.mycompany.business.calculobonus.calculosbonusfactories;
 
-import com.mycompany.business.calculobonus.BonusAleatorio;
 import com.mycompany.business.calculobonus.BonusAssiduidade;
+import com.mycompany.business.calculobonus.BonusCargo;
 import com.mycompany.business.calculobonus.BonusDistanciaDoTrabalho;
+import com.mycompany.business.calculobonus.BonusHonra;
 import com.mycompany.business.calculobonus.BonusTempoServico;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,8 @@ public class ListaCalculoBonusComumFactory implements IListaCalculoBonusFactory{
         listaCalculosBonus.add(new BonusAssiduidade());
         listaCalculosBonus.add(new BonusTempoServico());
         listaCalculosBonus.add(new BonusDistanciaDoTrabalho());
-        listaCalculosBonus.add(new BonusAleatorio());
+        listaCalculosBonus.add(new BonusCargo());
+        listaCalculosBonus.add(new BonusHonra());
         
         return listaCalculosBonus;
     }

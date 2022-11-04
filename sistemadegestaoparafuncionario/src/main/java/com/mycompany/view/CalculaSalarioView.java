@@ -22,7 +22,6 @@ public class CalculaSalarioView extends javax.swing.JFrame {
         initComponents();
         
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     /**

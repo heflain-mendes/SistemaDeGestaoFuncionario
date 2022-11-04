@@ -17,7 +17,7 @@ public class BonusDistanciaDoTrabalho implements ICalculoBonus{
     @Override
     public Bonus calcular(Funcionario funcionario, LocalDate data) {
         if(funcionario == null || data == null){
-            throw new NullPointerException("funcionario ou data ");
+            throw new NullPointerException("funcionario ou data invalidos");
         }
         
         double distancia = funcionario.getDistanciaDoTrabalho();
