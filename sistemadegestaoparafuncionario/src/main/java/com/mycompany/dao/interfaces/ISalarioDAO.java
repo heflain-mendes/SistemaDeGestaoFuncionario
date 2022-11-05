@@ -4,8 +4,10 @@
  */
 package com.mycompany.dao.interfaces;
 
+import com.mycompany.model.Funcionario;
 import com.mycompany.model.Salario;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,4 +19,5 @@ public interface ISalarioDAO {
     public List<Salario> obter(int idFuncionario) throws Exception, SQLException;
     public void atualizar(Salario salario) throws Exception, SQLException;
     public void remover (int idFuncionario) throws Exception, SQLException;
+    public List<Salario> obterPorData(int id, LocalDate data) throws Exception;
 }

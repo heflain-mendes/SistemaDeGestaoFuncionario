@@ -5,6 +5,7 @@
 package com.mycompany.dao.sqlite;
 
 import com.mycompany.dao.interfaces.ISalarioDAO;
+import com.mycompany.model.Funcionario;
 import com.mycompany.model.Salario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +115,33 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
             ps.executeUpdate();
         } catch (Exception ex) {
             throw new SQLException("Não foi possivel deletar salarios");
+        }
+    }
+    
+    @Override
+    public List<Salario> obterPorData(int idFuncionario, LocalDate data) throws Exception, SQLException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String sql = "SELECT * FROM salarios WHERE id_funcionario = ? AND data_salario = ?";
+
+        List<Salario> salarios = new ArrayList<>();
+
+        try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idFuncionario);
+            ps.setString(2, data.format(formatter));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Salario s = new Salario(rs.getInt("id"),
+                        rs.getDouble("salario_base"),
+                        rs.getDouble("salario_total"),
+                        LocalDate.parse(rs.getString("data_salario")));
+                salarios.add(s);
+            }
+
+            return salarios;
+
+        } catch (SQLException e) {
+            throw new SQLException("Não foi possivel obter todos bonus");
         }
     }
 }

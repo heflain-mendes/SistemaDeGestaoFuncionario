@@ -13,5 +13,5 @@ import java.time.LocalDate;
  * @author heflain
  */
 public interface ICalculoBonus {
-    public Bonus calcular(Funcionario funcionario, LocalDate data);
+    public Bonus calcular(Funcionario funcionario, LocalDate data) throws Exception;
 }

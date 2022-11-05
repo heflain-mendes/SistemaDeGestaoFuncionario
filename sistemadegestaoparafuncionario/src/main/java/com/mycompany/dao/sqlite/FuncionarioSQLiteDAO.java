@@ -223,4 +223,6 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
             throw new SQLException("Não foi possivel obter todos funcionarios na tabela funcionario");
         }
     }
+    
+    
 }

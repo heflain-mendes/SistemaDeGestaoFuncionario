@@ -6,6 +6,7 @@ package com.mycompany.dao.interfaces;
 
 import com.mycompany.model.Falta;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,4 +18,6 @@ public interface IFaltaDAO {
     public void atualizar(Falta falta) throws Exception, SQLException;
     public void remover(int idFuncionario) throws Exception, SQLException;
     public List<Falta> obterPorFuncionario(int idFuncionario) throws Exception, SQLException;
+    public Falta obterPorFuncionarioData(int idFuncionario, LocalDate data) 
+            throws Exception, SQLException;
 }

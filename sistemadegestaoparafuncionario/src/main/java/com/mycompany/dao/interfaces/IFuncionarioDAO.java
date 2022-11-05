@@ -6,6 +6,7 @@ package com.mycompany.dao.interfaces;
 
 import com.mycompany.model.Funcionario;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
