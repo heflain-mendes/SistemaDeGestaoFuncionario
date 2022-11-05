@@ -44,6 +44,13 @@ public class PrincipalPresenter {
             }
         });
         
+        view.getMiCalculosEstatistico().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                calculoEstatistico();
+            }
+        });
+        
         view.setVisible(true);
     }
 
@@ -57,5 +64,9 @@ public class PrincipalPresenter {
 
     private void calcularSalario() {
         new CalculaSalarioPresenter();
+    }
+    
+    private void calculoEstatistico(){
+        new CalculoEstatisticoPresenter();
     }
 }

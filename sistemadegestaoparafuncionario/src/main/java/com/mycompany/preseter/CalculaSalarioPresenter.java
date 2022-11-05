@@ -42,6 +42,7 @@ public class CalculaSalarioPresenter {
     }
 
     private void iniciarComponenetes() {
+        
         view.getBtnBuscar().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -138,8 +139,9 @@ public class CalculaSalarioPresenter {
 
         try {
             for (Funcionario f : ifdao.obterTodos()) {
+               
                 for (Salario s : isdao.obterPorData(f.getId(), data)) {
-
+                    
                     modelo.addRow(
                             new Object[]{
                                 f.getNome(),

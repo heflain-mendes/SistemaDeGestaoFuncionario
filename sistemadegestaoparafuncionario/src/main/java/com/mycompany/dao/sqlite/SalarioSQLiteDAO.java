@@ -22,7 +22,7 @@ import java.util.List;
  * @author heflain
  */
 public class SalarioSQLiteDAO implements ISalarioDAO {
-    
+
     public SalarioSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS salarios("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
@@ -117,25 +117,28 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
             throw new SQLException("Não foi possivel deletar salarios");
         }
     }
-    
+
     @Override
     public List<Salario> obterPorData(int idFuncionario, LocalDate data) throws Exception, SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String sql = "SELECT * FROM salarios WHERE id_funcionario = ? AND data_salario = ?";
+        String sql = "SELECT * FROM salarios WHERE id_funcionario = ?";
 
         List<Salario> salarios = new ArrayList<>();
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idFuncionario);
-            ps.setString(2, data.format(formatter));
             ResultSet rs = ps.executeQuery();
 
+            LocalDate dataObtidaDoSQLite;
             while (rs.next()) {
-                Salario s = new Salario(rs.getInt("id"),
-                        rs.getDouble("salario_base"),
-                        rs.getDouble("salario_total"),
-                        LocalDate.parse(rs.getString("data_salario")));
-                salarios.add(s);
+                dataObtidaDoSQLite = LocalDate.parse(rs.getString("data_salario"));
+                if (dataObtidaDoSQLite.equals(data)) {
+                    Salario s = new Salario(rs.getInt("id"),
+                            rs.getDouble("salario_base"),
+                            rs.getDouble("salario_total"),
+                            LocalDate.parse(rs.getString("data_salario")));
+                    salarios.add(s);
+                }
             }
 
             return salarios;

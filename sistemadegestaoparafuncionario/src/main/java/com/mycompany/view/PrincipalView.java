@@ -36,6 +36,7 @@ public class PrincipalView extends javax.swing.JFrame {
         miBuscarFuncionario = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         miCalcularSalario = new javax.swing.JMenuItem();
+        miCalculosEstatistico = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jRadioButtonMenuItem1.setSelected(true);
@@ -57,6 +58,9 @@ public class PrincipalView extends javax.swing.JFrame {
 
         miCalcularSalario.setText("calcular salario");
         jMenu1.add(miCalcularSalario);
+
+        miCalculosEstatistico.setText("calculos estatistico");
+        jMenu1.add(miCalculosEstatistico);
 
         mbPricipal.add(jMenu1);
 
@@ -123,6 +127,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem miBuscarFuncionario;
     private javax.swing.JMenuItem miCadastraFuncionario;
     private javax.swing.JMenuItem miCalcularSalario;
+    private javax.swing.JMenuItem miCalculosEstatistico;
     // End of variables declaration//GEN-END:variables
 
     public JMenuItem getMiBuscarFuncionario() {
@@ -135,5 +140,9 @@ public class PrincipalView extends javax.swing.JFrame {
 
     public JMenuItem getMiCalcularSalario() {
         return miCalcularSalario;
+    }
+
+    public JMenuItem getMiCalculosEstatistico() {
+        return miCalculosEstatistico;
     }
 }

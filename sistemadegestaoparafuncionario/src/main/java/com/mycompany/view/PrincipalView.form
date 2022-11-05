@@ -37,6 +37,11 @@
                 <Property name="text" type="java.lang.String" value="calcular salario"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miCalculosEstatistico">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="calculos estatistico"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">

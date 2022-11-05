@@ -20,6 +20,8 @@ public class ExecutaCalculoEstatistico {
     private ICalculoEstatistico menorSalario;
     private ICalculoEstatistico desvioPadrao;
     private ICalculoEstatistico coeficienteVariacao;
+    private ICalculoEstatistico quantidadeSalario;
+    
 
     public ExecutaCalculoEstatistico() {
         this.somatorio = new Somatorio();
@@ -28,6 +30,7 @@ public class ExecutaCalculoEstatistico {
         this.menorSalario = new MenorSalario();
         this.desvioPadrao = new DesvioPadrao();
         this.coeficienteVariacao = new CoeficienteDeVariacao();
+        this.quantidadeSalario = new QuantidadeSalario();
     }
     
     public CalculoEstatistico calcular(List<Salario> salarios, LocalDate data){
@@ -38,6 +41,7 @@ public class ExecutaCalculoEstatistico {
                 .setMenorSalario(this.menorSalario.calcular(salarios))
                 .setDesvioPadrao(this.desvioPadrao.calcular(salarios))
                 .setCoeficienteVariacao(this.coeficienteVariacao.calcular(salarios))
+                .setQtdSalario((int) this.quantidadeSalario.calcular(salarios))
                 .setData(data);
     }
 }
