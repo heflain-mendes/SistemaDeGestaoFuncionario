@@ -17,4 +17,6 @@ public interface IFuncionarioDAO {
     public void atualizar(Funcionario funcionario) throws Exception, SQLException;
     public void remover(Funcionario funcionario) throws Exception, SQLException;
     public List<Funcionario> obterTodos() throws Exception, SQLException;
+    public List<Funcionario> pesquisarPorNome (String pesquisa) throws Exception, SQLException;
+    public Funcionario obterPorId(int id) throws Exception, SQLException;
 }

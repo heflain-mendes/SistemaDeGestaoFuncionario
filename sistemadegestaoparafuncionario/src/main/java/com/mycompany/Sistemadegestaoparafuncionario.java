@@ -7,10 +7,8 @@ package com.mycompany;
 
 import com.mycompany.dao.DAOSingleton;
 import com.mycompany.dao.factory.DAOSQLiteFactory;
-import com.mycompany.model.Funcionario;
-import com.mycompany.preseter.FuncionarioPresenter;
+import com.mycompany.preseter.PrincipalPresenter;
 import io.github.cdimascio.dotenv.Dotenv;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,8 +20,7 @@ public class Sistemadegestaoparafuncionario {
     public static void main(String[] args) {
         try {
             configuracaoInicial();
-            Funcionario funcionario = new Funcionario("Heflain", 0, 0, 22, LocalDate.now(), 500.0, 3, false  );
-            new FuncionarioPresenter(null);
+            new PrincipalPresenter();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null,e.getMessage());

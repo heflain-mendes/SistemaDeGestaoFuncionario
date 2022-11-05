@@ -39,9 +39,6 @@ public class FuncionarioState {
         this.funcionarioPresenter.getView().getCbBonus().setEnabled(false);
         this.funcionarioPresenter.getView().getCbFuncionarioDoMes().setEnabled(false);
         
-        this.funcionarioPresenter.getView().getCbxCargo().removeAllItems();
-        this.funcionarioPresenter.getView().getCbBonus().removeAllItems();
-        
         this.funcionarioPresenter.getView().getTxtNome().setEditable(false);
         this.funcionarioPresenter.getView().getTxtIdade().setEditable(false);
         this.funcionarioPresenter.getView().getTxtAdmissao().setEditable(false);

@@ -17,7 +17,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Type;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -61,9 +60,13 @@ public class FuncionarioPresenter {
     
     public void iniciarCommponentes(){
         
+        this.view.getCbBonus().removeAllItems();
+        this.view.getCbxCargo().removeAllItems();
+        
         for(CargoArquivo c : obterListaCargos()){
             this.view.getCbxCargo().addItem(c.getCargo());
         }
+        
         
         for(BonusArquivo b : obterListaBonus()){
             this.view.getCbBonus().addItem(b.getBonus());
@@ -97,6 +100,14 @@ public class FuncionarioPresenter {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 editar();
+            }
+            
+        });
+        
+        this.view.getBtnAddFaltas().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                adicionarFalta();
             }
             
         });
@@ -165,6 +176,6 @@ public class FuncionarioPresenter {
     }
     
     public void adicionarFalta(){
-        
+        new AdicionarFaltaPresenter(funcionario);
     }
 }

@@ -11,26 +11,12 @@ import com.mycompany.view.CalculaSalarioView;
  * @author heflain
  */
 public class CalculaSalarioPresenter {
-    
-     public static CalculaSalarioPresenter instance = null;
     private final CalculaSalarioView view;
 
-    private CalculaSalarioPresenter() {
+    public  CalculaSalarioPresenter() {
         view = new CalculaSalarioView();
         view.setLocation(20, 20);
         view.setVisible(true);
-    }
-
-    public static CalculaSalarioPresenter getInstance(){
-        if(instance == null){
-            instance = new CalculaSalarioPresenter();
-        }
-        
-        return instance;
-    }
-    
-     public CalculaSalarioView getView() {
-        return view;
     }
     
     

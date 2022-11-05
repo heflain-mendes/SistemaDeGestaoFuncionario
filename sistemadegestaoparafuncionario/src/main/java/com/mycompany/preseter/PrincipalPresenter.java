@@ -4,62 +4,58 @@
  */
 package com.mycompany.preseter;
 
-import com.mycompany.model.Funcionario;
-import com.mycompany.preseter.states.FuncionarioState;
 import com.mycompany.view.PrincipalView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author heflain
  */
 public class PrincipalPresenter {
+
     private PrincipalView view;
-    private FuncionarioState funcionarioState;
-    private Funcionario funcionario;
-    
-    
-    public PrincipalPresenter(Funcionario funcionairo) {
+
+    public PrincipalPresenter() {
         this.view = new PrincipalView();
-        
+        this.initListeners();
     }
 
-    
-    /*
     private void initListeners() {
-        try {
 
-            view.getMiCadastrarFuncionario().addActionListener((var e) -> {
-                try {
-                    cadastraFuncionarioPresenter = FuncionarioPresenter.getInstance();
-                    cadastraFuncionarioPresenter.setState(funcionarioList);
-                    view.add(cadastraFuncionarioPresenter.getView());
+        view.getMiCadastrarFuncionario().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                cadastraFuncionario();
+            }
+        });
 
-                } catch (Exception ex) {
-                    Logger.getLogger(PrincipalPresenter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
+        view.getMiBuscarFuncionario().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                buscarFuncionario();
+            }
+        });
 
-            view.getMiBuscarFuncionario().addActionListener((ActionEvent e) -> {
-                try {
-                    buscaFuncionarioPresenter = BuscaFuncionarioPresenter.getInstance();
-                    view.add(cadastraFuncionarioPresenter.getView());
-                } catch (Exception ex) {
-                    Logger.getLogger(PrincipalPresenter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
+        view.getMiCalcularSalario().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                calcularSalario();
+            }
+        });
+        
+        view.setVisible(true);
+    }
 
-            view.getMiCalcularSalario().addActionListener((var e) -> {
-                try {
-                  calculaSalarioPresenter = CalculaSalarioPresenter.getInstance();
-                  view.add(calculaSalarioPresenter.getView());
-                } catch (Exception ex) {
-                    Logger.getLogger(PrincipalPresenter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-        } catch (Exception e) {
-            Logger.getLogger(PrincipalPresenter.class.getName()).log(Level.SEVERE, "ERROR", JOptionPane.ERROR_MESSAGE);
+    private void cadastraFuncionario() {
+        new FuncionarioPresenter(null);
+    }
 
-        }
+    private void buscarFuncionario() {
+        new BuscaFuncionarioPresenter();
+    }
 
-    }*/
+    private void calcularSalario() {
+        new CalculaSalarioPresenter();
+    }
 }

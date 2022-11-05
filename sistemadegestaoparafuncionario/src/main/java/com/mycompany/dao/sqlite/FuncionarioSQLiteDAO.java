@@ -165,4 +165,62 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
             throw new SQLException("Não foi possivel obter todos funcionarios na tabela funcionario");
         }
     }
+
+    @Override
+    public List<Funcionario> pesquisarPorNome(String pesquisa) throws Exception {
+        String sql = "SELECT * FROM funcionarios where nome LIKE ?";
+        List<Funcionario> funcionarios = new ArrayList<>();
+        try ( Connection conn = SQLiteConnection.getConexao()) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + pesquisa + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Funcionario f = new Funcionario(rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("cargo"),
+                        rs.getInt("bonus_honra"),
+                        rs.getInt("idade"),
+                        LocalDate.parse(rs.getString("data_inicio")),
+                        rs.getDouble("salario_base"),
+                        rs.getDouble("distancia_trabalho"),
+                        rs.getBoolean("funcionario_mes")
+                );
+                funcionarios.add(f);
+            }
+            return funcionarios;
+        } catch (SQLException e) {
+            throw new SQLException("Não foi possivel obter todos funcionarios na tabela funcionario");
+        }
+    }
+
+    @Override
+    public Funcionario obterPorId(int id) throws Exception {
+        String sql = "SELECT * FROM funcionarios where id = ?";
+
+        try ( Connection conn = SQLiteConnection.getConexao()) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Funcionario f = new Funcionario(rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("cargo"),
+                        rs.getInt("bonus_honra"),
+                        rs.getInt("idade"),
+                        LocalDate.parse(rs.getString("data_inicio")),
+                        rs.getDouble("salario_base"),
+                        rs.getDouble("distancia_trabalho"),
+                        rs.getBoolean("funcionario_mes")
+                );
+
+                return f;
+            }
+            
+            return null;
+        } catch (SQLException e) {
+            throw new SQLException("Não foi possivel obter todos funcionarios na tabela funcionario");
+        }
+    }
 }

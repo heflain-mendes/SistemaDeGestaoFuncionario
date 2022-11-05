@@ -6,6 +6,7 @@ package com.mycompany.preseter.states;
 
 import com.mycompany.dao.DAOSingleton;
 import com.mycompany.model.Funcionario;
+import com.mycompany.preseter.ExcluirFuncionarioPresenter;
 import com.mycompany.preseter.FuncionarioPresenter;
 import com.mycompany.view.FuncionarioView;
 import java.sql.SQLException;
@@ -41,15 +42,13 @@ public class FuncionarioVisualizacaoState extends FuncionarioState{
         
         view.getBtnEditar().setVisible(true);
         view.getBtnExcluir().setVisible(true);
+        view.getBtnAddFaltas().setVisible(true);
     }
 
     @Override
     public void excluir() throws Exception, SQLException {
         Funcionario funcionario = this.funcionarioPresenter.getFuncionario();
-        DAOSingleton instance = DAOSingleton.getInstance();
-        instance.getFuncionarioDAO().remover(funcionario);
-        instance.getBonusDAO().removerTodos(funcionario.getId());
-        instance.getFaltaDAO().remover(funcionario.getId());
+        new ExcluirFuncionarioPresenter(funcionario);
         funcionarioPresenter.fechar();
     }
 
