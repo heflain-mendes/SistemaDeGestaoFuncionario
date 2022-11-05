@@ -7,7 +7,6 @@ package com.mycompany.service;
 import com.mycompany.business.calculosestatistico.ExecutaCalculoEstatistico;
 import com.mycompany.dao.DAOSingleton;
 import com.mycompany.model.CalculoEstatistico;
-import com.mycompany.model.Funcionario;
 import com.mycompany.model.Salario;
 import java.sql.SQLException;
 import java.time.LocalDate;

@@ -25,7 +25,7 @@ public class ExecutaCalculoBonus {
         this.calculosBonus = calculosBonus;
     }
     
-    public List<Bonus> calcular(Funcionario funcionario, LocalDate data){
+    public List<Bonus> calcular(Funcionario funcionario, LocalDate data) throws Exception{
         List<Bonus> listBonus = new ArrayList();
         
         for(ICalculoBonus calculoBonus : calculosBonus){

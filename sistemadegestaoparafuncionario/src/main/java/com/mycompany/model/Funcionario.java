@@ -12,9 +12,11 @@ import java.util.List;
  * @author heflain
  */
 public class Funcionario {
-    public int id;
+    private int id;
     private String nome;
-    private String cargo;
+    private int cargo;
+    private int bonusHonra;
+    private int idade;
     private LocalDate dataInicioNaEmpresa;
     private double salarioBaseAtual;
     private double distanciaDoTrabalho;
@@ -24,7 +26,7 @@ public class Funcionario {
     private List<Bonus> bonus;
     private List<Salario> salarios;
 
-    public Funcionario(int id,String nome, String cargo, LocalDate dataInicioNaEmpresa, double salarioBaseAtual, double distanciaDoTrabalho, boolean funcionairoDoMes) {
+    public Funcionario(int id,String nome, int cargo, int bonus, int idade, LocalDate dataInicioNaEmpresa, double salarioBaseAtual, double distanciaDoTrabalho, boolean funcionairoDoMes) {
         this.id = id;
         this.nome = nome;
         this.cargo = cargo;
@@ -32,26 +34,37 @@ public class Funcionario {
         this.salarioBaseAtual = salarioBaseAtual;
         this.distanciaDoTrabalho = distanciaDoTrabalho;
         this.funcionairoDoMes = funcionairoDoMes;
+        this.bonusHonra = bonus;
+        this.idade = idade;
     }
 
-    public Funcionario(String nome, String cargo, LocalDate dataInicioNaEmpresa, double salarioBaseAtual, double distanciaDoTrabalho, boolean funcionairoDoMes) {
+    public Funcionario(String nome, int cargo, int bonus, int idade, LocalDate dataInicioNaEmpresa, double salarioBaseAtual, double distanciaDoTrabalho, boolean funcionairoDoMes) {
         this.nome = nome;
         this.cargo = cargo;
         this.dataInicioNaEmpresa = dataInicioNaEmpresa;
         this.salarioBaseAtual = salarioBaseAtual;
         this.distanciaDoTrabalho = distanciaDoTrabalho;
         this.funcionairoDoMes = funcionairoDoMes;
+        this.bonusHonra = bonus;
+        this.idade = idade;
+        this.id = -1;
     }
 
     public int getId() {
         return id;
+    }
+    
+    public void setId(int id){
+        if(id == -1){
+            this.id = id;
+        }
     }
 
     public String getNome() {
         return nome;
     }
 
-    public String getCargo() {
+    public int getCargo() {
         return cargo;
     }
 
@@ -59,7 +72,7 @@ public class Funcionario {
         return dataInicioNaEmpresa;
     }
 
-    public Double getSalarioBaseAtual() {
+    public double getSalarioBaseAtual() {
         return salarioBaseAtual;
     }
 
@@ -74,6 +87,14 @@ public class Funcionario {
     public List<Salario> getSalarios() {
         return salarios;
     }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
     
     public double getDistanciaDoTrabalho(){
         return distanciaDoTrabalho;
@@ -86,8 +107,16 @@ public class Funcionario {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public int getBonusHonra() {
+        return bonusHonra;
+    }
+
+    public void setBonusHonra(int bonusHonra) {
+        this.bonusHonra = bonusHonra;
+    }
     
-    public void setCargo(String cargo) {
+    public void setCargo(int cargo) {
         this.cargo = cargo;
     }
 
@@ -120,4 +149,14 @@ public class Funcionario {
         
         return null;
     }
+
+    public void setFuncionairoDoMes(boolean funcionairoDoMes) {
+        this.funcionairoDoMes = funcionairoDoMes;
+    }
+
+    public void setDistanciaDoTrabalho(double distanciaDoTrabalho) {
+        this.distanciaDoTrabalho = distanciaDoTrabalho;
+    }
+    
+    
 }

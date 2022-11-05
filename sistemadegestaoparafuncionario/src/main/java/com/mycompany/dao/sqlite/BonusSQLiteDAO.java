@@ -28,14 +28,14 @@ public class BonusSQLiteDAO implements IBonusDAO {
                 + " tipo TEXT NOT NULL,"
                 + " data_bonus TEXT NOT NULL,"
                 + " valor REAL NOT NULL,"
-                + " cargo TEXT NOT NULL"
+                + " cargo INTEGER NOT NULL, "
                 + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)"
-                + ")";
+                + " );";
 
         try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
             st.execute(sql);
         } catch (SQLException ex) {
-            //System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage());
             throw new SQLException("Não foi possivel criar a tabela bonus");
         }
     }
@@ -54,7 +54,7 @@ public class BonusSQLiteDAO implements IBonusDAO {
             ps.setString(2, bonus.getTipo());
             ps.setString(3, bonus.getData().toString());
             ps.setDouble(4, bonus.getValor());
-            ps.setString(5, bonus.getCargo());
+            ps.setInt(5, bonus.getCargo());
 
             ps.executeUpdate();
 
@@ -77,7 +77,7 @@ public class BonusSQLiteDAO implements IBonusDAO {
                 Bonus b = new Bonus(rs.getInt("id"),
                         rs.getString("tipo"),
                         rs.getDouble("valor"),
-                        rs.getString("cargo"),
+                        rs.getInt("cargo"),
                         LocalDate.parse(rs.getString("data_bonus")));
                 bonus.add(b);
             }

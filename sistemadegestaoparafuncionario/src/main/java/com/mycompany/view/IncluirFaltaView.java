@@ -19,7 +19,6 @@ public class IncluirFaltaView extends javax.swing.JFrame {
     public IncluirFaltaView() {
         initComponents();
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     /**

@@ -6,6 +6,7 @@ package com.mycompany.dao.interfaces;
 
 import com.mycompany.model.Funcionario;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -13,8 +14,10 @@ import java.util.List;
  * @author heflain
  */
 public interface IFuncionarioDAO {
-    public void salvar (Funcionario funcionario) throws Exception, SQLException;
+    public Funcionario salvar (Funcionario funcionario) throws Exception, SQLException;
     public void atualizar(Funcionario funcionario) throws Exception, SQLException;
     public void remover(Funcionario funcionario) throws Exception, SQLException;
     public List<Funcionario> obterTodos() throws Exception, SQLException;
+    public List<Funcionario> pesquisarPorNome (String pesquisa) throws Exception, SQLException;
+    public Funcionario obterPorId(int id) throws Exception, SQLException;
 }

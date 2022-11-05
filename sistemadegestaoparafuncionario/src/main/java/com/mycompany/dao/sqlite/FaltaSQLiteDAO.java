@@ -91,7 +91,7 @@ public class FaltaSQLiteDAO implements IFaltaDAO {
     }
 
     @Override
-    public List<Falta> obterPorFuncionario(int idFuncionario) throws Exception, SQLException{
+    public List<Falta> obterPorFuncionario(int idFuncionario) throws Exception, SQLException {
         String sql = "SELECT * FROM faltas WHERE id_funcionario = ?";
 
         List<Falta> faltas = new ArrayList<>();
@@ -104,14 +104,26 @@ public class FaltaSQLiteDAO implements IFaltaDAO {
                 Falta f = new Falta(rs.getInt("id"),
                         LocalDate.parse(rs.getString("data_falta")),
                         rs.getInt("qtd")
-                        );
+                );
                 faltas.add(f);
             }
 
             return faltas;
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new SQLException("Não foi possivel obter todas as faltas");
         }
+    }
+
+    @Override
+    public Falta obterPorFuncionarioData(int idFuncionario, LocalDate data) throws Exception {
+        for (Falta f : obterPorFuncionario(idFuncionario)) {
+            if(f.getDate().getMonthValue() == data.getMonthValue() &&
+                    f.getDate().getYear() == data.getYear()){
+                return f;
+            }
+        }
+        
+        return null;
     }
 }

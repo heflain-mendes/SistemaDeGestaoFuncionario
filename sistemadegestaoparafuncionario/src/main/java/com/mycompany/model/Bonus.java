@@ -14,10 +14,10 @@ public class Bonus {
     private int id;
     private String tipo;
     private double valor;
-    private String cargo;
+    private int cargo;
     private LocalDate data;
 
-    public Bonus(int id, String tipo, double valor, String cargo, LocalDate data) {
+    public Bonus(int id, String tipo, double valor, int cargo, LocalDate data) {
         this.id = id;
         this.tipo = tipo;
         this.valor = valor;
@@ -25,7 +25,7 @@ public class Bonus {
         this.cargo = cargo;
     }
 
-    public Bonus(String tipo, double valor, String cargo, LocalDate data) {
+    public Bonus(String tipo, double valor, int cargo, LocalDate data) {
         this.tipo = tipo;
         this.valor = valor;
         this.cargo = cargo;
@@ -48,7 +48,7 @@ public class Bonus {
         return data;
     }
 
-    public String getCargo() {
+    public int getCargo() {
         return cargo;
     }
     

@@ -4,13 +4,9 @@
  */
 package com.mycompany.preseter;
 
-import com.mycompany.model.Funcionario;
 import com.mycompany.view.PrincipalView;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -18,64 +14,59 @@ import javax.swing.JOptionPane;
  */
 public class PrincipalPresenter {
 
-    private static PrincipalPresenter instance = null;
-    private final PrincipalView view;
-    private CadastraFuncionarioPresenter cadastraFuncionarioPresenter;
-    private BuscaFuncionarioPresenter buscaFuncionarioPresenter;
-    private CalculaSalarioPresenter calculaSalarioPresenter;
-    private final ArrayList<Funcionario> funcionarioList;
+    private PrincipalView view;
 
-    private PrincipalPresenter() {
-        view = new PrincipalView();
-        view.setVisible(true);
-        funcionarioList = new ArrayList();
-
-        initListeners();
-    }
-
-    public static PrincipalPresenter getInstance() {
-        if (instance == null) {
-            instance = new PrincipalPresenter();
-        }
-        return instance;
+    public PrincipalPresenter() {
+        this.view = new PrincipalView();
+        this.initListeners();
     }
 
     private void initListeners() {
-        try {
 
-            view.getMiCadastrarFuncionario().addActionListener((var e) -> {
-                try {
-                    cadastraFuncionarioPresenter = CadastraFuncionarioPresenter.getInstance();
-                    cadastraFuncionarioPresenter.setState(funcionarioList);
-                    view.add(cadastraFuncionarioPresenter.getView());
+        view.getMiCadastrarFuncionario().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                cadastraFuncionario();
+            }
+        });
 
-                } catch (Exception ex) {
-                    Logger.getLogger(PrincipalPresenter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
+        view.getMiBuscarFuncionario().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                buscarFuncionario();
+            }
+        });
 
-            view.getMiBuscarFuncionario().addActionListener((ActionEvent e) -> {
-                try {
-                    buscaFuncionarioPresenter = BuscaFuncionarioPresenter.getInstance();
-                    view.add(cadastraFuncionarioPresenter.getView());
-                } catch (Exception ex) {
-                    Logger.getLogger(PrincipalPresenter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-
-            view.getMiCalcularSalario().addActionListener((var e) -> {
-                try {
-                  calculaSalarioPresenter = CalculaSalarioPresenter.getInstance();
-                  view.add(calculaSalarioPresenter.getView());
-                } catch (Exception ex) {
-                    Logger.getLogger(PrincipalPresenter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-        } catch (Exception e) {
-            Logger.getLogger(PrincipalPresenter.class.getName()).log(Level.SEVERE, "ERROR", JOptionPane.ERROR_MESSAGE);
-
-        }
-
+        view.getMiCalcularSalario().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                calcularSalario();
+            }
+        });
+        
+        view.getMiCalculosEstatistico().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                calculoEstatistico();
+            }
+        });
+        
+        view.setVisible(true);
     }
 
+    private void cadastraFuncionario() {
+        new FuncionarioPresenter(null);
+    }
+
+    private void buscarFuncionario() {
+        new BuscaFuncionarioPresenter();
+    }
+
+    private void calcularSalario() {
+        new CalculaSalarioPresenter();
+    }
+    
+    private void calculoEstatistico(){
+        new CalculoEstatisticoPresenter();
+    }
 }
