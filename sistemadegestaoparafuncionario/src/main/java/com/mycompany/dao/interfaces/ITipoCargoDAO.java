@@ -4,7 +4,7 @@
  */
 package com.mycompany.dao.interfaces;
 
-import com.mycompany.model.TipoCargo;
+import com.mycompany.model.Cargo;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,8 +13,8 @@ import java.util.List;
  * @author heflain
  */
 public interface ITipoCargoDAO {
-    public void salvar(TipoCargo tipoCargo) throws Exception, SQLException;
-    public List<TipoCargo> obterTodos() throws Exception, SQLException;
-    public TipoCargo obter(int id) throws Exception, SQLException;
+    public void salvar(Cargo tipoCargo) throws Exception, SQLException;
+    public List<Cargo> obterTodos() throws Exception, SQLException;
+    public Cargo obter(int id) throws Exception, SQLException;
     public int obterId(String nome) throws Exception;
 }

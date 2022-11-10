@@ -5,7 +5,7 @@
 package com.mycompany.service;
 
 import com.mycompany.business.calculosestatistico.ExecutaCalculoEstatistico;
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.model.CalculoEstatistico;
 import com.mycompany.model.Salario;
 import java.sql.SQLException;
@@ -25,6 +25,6 @@ public class CalculoEstatisticoService {
     
     public void calcular(List<Salario> salarios, LocalDate data) throws Exception, SQLException{
         CalculoEstatistico calculoEstatistico = this.calculoEstatistico.calcular(salarios, data);
-        DAOSingleton.getInstance().getCalculoEstatisticoDAO().salvar(calculoEstatistico);
+        DAOUtilitarios.getInstance().getCalculoEstatisticoDAO().salvar(calculoEstatistico);
     }
 }

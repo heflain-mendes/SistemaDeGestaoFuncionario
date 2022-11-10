@@ -4,113 +4,136 @@
  */
 package com.mycompany.dao.sqlite;
 
+import com.mycompany.dao.interfaces.ITipoBonusDAO;
 import com.mycompany.model.Bonus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import com.mycompany.dao.interfaces.IBonusFuncionarioDAO;
 
 /**
  *
  * @author heflain
  */
-public class BonusSQLiteDAO implements IBonusFuncionarioDAO {
+public class BonusSQLiteDAO implements ITipoBonusDAO {
 
-    public BonusSQLiteDAO() throws SQLException, Exception {
-        String sql = "CREATE TABLE IF NOT EXISTS bonus("
+    public BonusSQLiteDAO() throws Exception {
+        String sql = "CREATE TABLE IF NOT EXISTS tipo_bonus("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-                + " id_funcionario INTEGER NOT NULL,"
-                + " tipo TEXT NOT NULL,"
-                + " data_bonus TEXT NOT NULL,"
-                + " valor REAL NOT NULL,"
-                + " cargo INTEGER NOT NULL, "
-                + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)"
+                + " nome TEXT NOT NULL,"
+                + " porcentagem REAL NOT NULL "
                 + " );";
 
         try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
             st.execute(sql);
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            throw new SQLException("Não foi possivel criar a tabela bonus");
+            ex.printStackTrace();
+            throw new SQLException("Não foi possivel criar a tabela tipo_bonus");
         }
     }
 
     @Override
-    public void salvar(int idFuncionario, Bonus bonus) throws Exception, SQLException {
-        if (bonus == null) {
-            throw new Exception("O Metodo salvar da Classe BonusSQLiteDAO necessita que bonus tenha valores validos");
+    public void salvar(Bonus bonusCadastrado) throws Exception, SQLException {
+        if (bonusCadastrado == null) {
+            throw new Exception("O Metodo salvar da Classe TipoBonusSQLiteDAO"
+                    + " necessita de parametros não nulos");
         }
 
-        String sql = "INSERT INTO bonus (id_funcionario, tipo, data_bonus, valor, cargo) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tipo_bonus (nome, porcentagem) VALUES (?, ?)";
 
-        try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (
+                Connection conn = SQLiteConnection.getConexao();
+                PreparedStatement ps = conn.prepareStatement(sql);
+            ) {
 
-            ps.setInt(1, idFuncionario);
-            ps.setString(2, bonus.getTipo());
-            ps.setString(3, bonus.getData().toString());
-            ps.setDouble(4, bonus.getValor());
-            ps.setInt(5, bonus.getCargo());
+            ps.setString(1, bonusCadastrado.getNoma());
+            ps.setDouble(2, bonusCadastrado.getPorcentagem());
 
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            //System.out.println(e.getMessage());
             e.printStackTrace();
-            throw new SQLException("Não foi possivel salvar informações do bonus");
+            throw new SQLException("Não foi possivel salvar informações do tipo de bonus");
         }
     }
 
     @Override
-    public List<Bonus> obter(int idFuncionario) throws Exception, SQLException {
-        String sql = "SELECT * FROM bonus WHERE id_funcionario = ?";
+    public List<Bonus> obterTodos() throws Exception, SQLException {
+        String sql = "SELECT * FROM tipo_bonus";
         List<Bonus> bonus = new ArrayList<>();
 
-        try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idFuncionario);
-            ResultSet rs = ps.executeQuery();
+        try (
+                Connection conn = SQLiteConnection.getConexao();  
+                PreparedStatement ps = conn.prepareStatement(sql);  
+                ResultSet rs = ps.executeQuery();
+            ) {
+
             while (rs.next()) {
-                Bonus b = new Bonus(rs.getInt("id"),
-                        rs.getString("tipo"),
-                        rs.getDouble("valor"),
-                        rs.getInt("cargo"),
-                        LocalDate.parse(rs.getString("data_bonus")));
+                Bonus b = new Bonus(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getDouble("porcentagem")
+                );
                 bonus.add(b);
             }
 
-            rs.close();
-
             return bonus;
         } catch (SQLException e) {
-            throw new SQLException("Não foi possivel obter todos bonus");
+            throw new SQLException("Não foi possivel obter todos tipos bonus");
         }
     }
 
     @Override
-    public void remover(int idFuncionario, LocalDate data) throws Exception, SQLException {
-        String sql = "DELETE FROM bonus WHERE id_funcionario = ? AND data_bonus = ?";
-        try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idFuncionario);
-            ps.setString(2, data.toString());
-            ps.executeUpdate();
+    public Bonus obter(int id) throws Exception, SQLException {
+        String sql = "SELECT * FROM tipo_bonus WHERE id = ?";
+
+        try ( 
+                Connection conn = SQLiteConnection.getConexao();  
+                PreparedStatement ps = conn.prepareStatement(sql);
+            ) {
+            
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            Bonus b = new Bonus(rs.getInt("id"),
+                    rs.getString("nome"),
+                    rs.getDouble("porcentagem")
+            );
+            return b;
+
         } catch (SQLException e) {
-            throw new SQLException("Não foi possivel deletar salario");
+            e.printStackTrace();
+            throw new SQLException("Não foi possivel obter o tipo de bonus");
         }
     }
-
+    
     @Override
-    public void removerTodos(int idFuncionario) throws Exception, SQLException {
-        String sql = "DELETE FROM bonus WHERE id_funcionario = ?";
-        try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idFuncionario);
+    public int obterId(String name) throws Exception, SQLException {
+        String sql = "SELECT * FROM tipo_bonus WHERE nome = ?";
 
-            ps.executeUpdate();
+        try ( 
+                Connection conn = SQLiteConnection.getConexao();  
+                PreparedStatement ps = conn.prepareStatement(sql);
+            ) {
+            
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            Bonus b = new Bonus(rs.getInt("id"),
+                    rs.getString("nome"),
+                    rs.getDouble("porcentagem")
+            );
+            return b.getId();
+
         } catch (SQLException e) {
-            throw new SQLException("Não foi possivel deletar salarios");
+            e.printStackTrace();
+            throw new SQLException("Não foi possivel obter o tipo de bonus");
         }
     }
+    
 }

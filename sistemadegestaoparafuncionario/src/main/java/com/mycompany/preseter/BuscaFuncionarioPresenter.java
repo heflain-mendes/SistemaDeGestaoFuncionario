@@ -4,10 +4,10 @@
  */
 package com.mycompany.preseter;
 
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.dao.interfaces.IFuncionarioDAO;
 import com.mycompany.model.Funcionario;
-import com.mycompany.model.TipoCargo;
+import com.mycompany.model.Cargo;
 import com.mycompany.view.BuscaFuncionarioView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -87,7 +87,7 @@ public class BuscaFuncionarioPresenter {
 
         modelo.setRowCount(0);
 
-        IFuncionarioDAO ifdao = DAOSingleton.getInstance().getFuncionarioDAO();
+        IFuncionarioDAO ifdao = DAOUtilitarios.getInstance().getFuncionarioDAO();
 
         try {
             for (Funcionario f : ifdao.obterTodos()) {
@@ -120,9 +120,9 @@ public class BuscaFuncionarioPresenter {
         }
     }
 
-    private TipoCargo obterCargoPorId(int id){
+    private Cargo obterCargoPorId(int id){
         try {
-            return DAOSingleton.getInstance().getTipoCargoDAO().obter(id);
+            return DAOUtilitarios.getInstance().getTipoCargoDAO().obter(id);
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
@@ -145,7 +145,7 @@ public class BuscaFuncionarioPresenter {
 
         modelo.setRowCount(0);
 
-        IFuncionarioDAO ifdao = DAOSingleton.getInstance().getFuncionarioDAO();
+        IFuncionarioDAO ifdao = DAOUtilitarios.getInstance().getFuncionarioDAO();
 
         String pesquisa = view.getTxtNome().getText();
 
@@ -197,7 +197,7 @@ public class BuscaFuncionarioPresenter {
 
     private Funcionario obterFuncionario() {
         if (view.getTbListaFuncionario().getSelectedRowCount() > 0) {
-            IFuncionarioDAO ifdao = DAOSingleton.getInstance().getFuncionarioDAO();
+            IFuncionarioDAO ifdao = DAOUtilitarios.getInstance().getFuncionarioDAO();
             Integer id = (Integer) modelo.getValueAt(
                     view.getTbListaFuncionario().getSelectedRow(),
                     0

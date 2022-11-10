@@ -4,53 +4,43 @@
  */
 package com.mycompany.model;
 
-import java.time.LocalDate;
-
 /**
  *
  * @author heflain
  */
 public class Bonus {
     private int id;
-    private String tipo;
-    private double valor;
-    private int cargo;
-    private LocalDate data;
+    private String noma;
+    private double porcentagem;
 
-    public Bonus(int id, String tipo, double valor, int cargo, LocalDate data) {
+    public Bonus(int id, String noma, double porcentagem) {
         this.id = id;
-        this.tipo = tipo;
-        this.valor = valor;
-        this.data = data;
-        this.cargo = cargo;
+        this.noma = noma;
+        this.porcentagem = porcentagem;
     }
 
-    public Bonus(String tipo, double valor, int cargo, LocalDate data) {
-        this.tipo = tipo;
-        this.valor = valor;
-        this.cargo = cargo;
-        this.data = data;
+    public Bonus(String noma, double porcentagem) {
+        this.noma = noma;
+        this.porcentagem = porcentagem;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getNoma() {
+        return noma;
     }
 
-    public double getValor() {
-        return valor;
+    public void setNoma(String noma) {
+        this.noma = noma;
     }
 
-    public LocalDate getData() {
-        return data;
+    public double getPorcentagem() {
+        return porcentagem;
     }
 
-    public int getCargo() {
-        return cargo;
+    public void setPorcentagem(double porcentagem) {
+        this.porcentagem = porcentagem;
     }
-    
-    
 }

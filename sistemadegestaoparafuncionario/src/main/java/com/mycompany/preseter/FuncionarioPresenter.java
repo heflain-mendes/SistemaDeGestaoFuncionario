@@ -4,10 +4,10 @@
  */
 package com.mycompany.preseter;
 
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.model.Funcionario;
-import com.mycompany.model.TipoBonus;
-import com.mycompany.model.TipoCargo;
+import com.mycompany.model.Bonus;
+import com.mycompany.model.Cargo;
 import com.mycompany.preseter.states.FuncionarioInclusaoState;
 import com.mycompany.preseter.states.FuncionarioState;
 import com.mycompany.preseter.states.FuncionarioVisualizacaoState;
@@ -26,8 +26,8 @@ public class FuncionarioPresenter {
     private Funcionario funcionario;
     private FuncionarioView view;
     private FuncionarioState funcionarioState;
-    private List<TipoCargo> listaCargo;
-    private List<TipoBonus> listaBonus;
+    private List<Cargo> listaCargo;
+    private List<Bonus> listaBonus;
 
     public FuncionarioPresenter(Funcionario funcionario) {
         this.view = new FuncionarioView();
@@ -65,12 +65,12 @@ public class FuncionarioPresenter {
         this.view.getCbBonus().removeAllItems();
         this.view.getCbxCargo().removeAllItems();
         
-        for(TipoCargo c : listaCargo){
+        for(Cargo c : listaCargo){
             this.view.getCbxCargo().addItem(c.getNome());
         }
         
         
-        for(TipoBonus b : listaBonus){
+        for(Bonus b : listaBonus){
             this.view.getCbBonus().addItem(b.getNoma());
         }
         
@@ -115,9 +115,9 @@ public class FuncionarioPresenter {
         });
     }
     
-    private List<TipoCargo> obterListaCargos(){
+    private List<Cargo> obterListaCargos(){
         try {
-            return DAOSingleton.getInstance().getTipoCargoDAO().obterTodos();
+            return DAOUtilitarios.getInstance().getTipoCargoDAO().obterTodos();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
@@ -130,9 +130,9 @@ public class FuncionarioPresenter {
         return null;
     }
     
-    private List<TipoBonus> obterListaBonus(){
+    private List<Bonus> obterListaBonus(){
         try {
-            return DAOSingleton.getInstance().getTipoBonusDAO().obterTodos();
+            return DAOUtilitarios.getInstance().getTipoBonusDAO().obterTodos();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
@@ -195,11 +195,11 @@ public class FuncionarioPresenter {
         new AdicionarFaltaPresenter(funcionario);
     }
 
-    public List<TipoCargo> getListaCargo() {
+    public List<Cargo> getListaCargo() {
         return listaCargo;
     }
 
-    public List<TipoBonus> getListaBonus() {
+    public List<Bonus> getListaBonus() {
         return listaBonus;
     }
 }

@@ -4,7 +4,7 @@
  */
 package com.mycompany.business.calculobonus;
 
-import com.mycompany.model.Bonus;
+import com.mycompany.model.BonusProcessado;
 import com.mycompany.model.Funcionario;
 import java.time.LocalDate;
 
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class BonusTempoServico implements ICalculoBonus{
 
     @Override
-    public Bonus calcular(Funcionario funcionario, LocalDate data) {
+    public BonusProcessado calcular(Funcionario funcionario, LocalDate data) {
         if(funcionario == null || data == null){
             throw new NullPointerException("funcionario ou data ");
         }
@@ -37,6 +37,6 @@ public class BonusTempoServico implements ICalculoBonus{
             valor = 0;
         }
         
-        return new Bonus("tempo de serviço", valor,funcionario.getCargo(), data);
+        return new BonusProcessado("tempo de serviço", valor,funcionario.getCargo(), data);
     }
 }

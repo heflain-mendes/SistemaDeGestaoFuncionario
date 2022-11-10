@@ -4,7 +4,7 @@
  */
 package com.mycompany.preseter;
 
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.dao.interfaces.IFaltaDAO;
 import com.mycompany.model.Falta;
 import com.mycompany.model.Funcionario;
@@ -60,7 +60,7 @@ public class AdicionarFaltaPresenter {
     private void salvar(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
-        IFaltaDAO faltaDAO = DAOSingleton.getInstance().getFaltaDAO();
+        IFaltaDAO faltaDAO = DAOUtilitarios.getInstance().getFaltaDAO();
         Falta falta = new Falta(
                 LocalDate.parse(view.getTxtData().getText(), formatter),
                 Integer.parseInt(view.getTxtFaltas().getText()));

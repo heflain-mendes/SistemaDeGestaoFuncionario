@@ -5,8 +5,8 @@
 package com.mycompany.preseter.states;
 
 import com.mycompany.model.Funcionario;
-import com.mycompany.model.TipoBonus;
-import com.mycompany.model.TipoCargo;
+import com.mycompany.model.Bonus;
+import com.mycompany.model.Cargo;
 import com.mycompany.preseter.ExcluirFuncionarioPresenter;
 import com.mycompany.preseter.FuncionarioPresenter;
 import com.mycompany.view.FuncionarioView;
@@ -59,7 +59,7 @@ public class FuncionarioVisualizacaoState extends FuncionarioState{
     }
     
     private int obterIndexBonus(int id){
-        for(TipoBonus b : this.funcionarioPresenter.getListaBonus()){
+        for(Bonus b : this.funcionarioPresenter.getListaBonus()){
             if(b.getId() == id){
                 return funcionarioPresenter.getListaBonus().indexOf(b);
             }
@@ -69,7 +69,7 @@ public class FuncionarioVisualizacaoState extends FuncionarioState{
     }
     
     private int obterIndexCargo(int id){
-        for(TipoCargo c : this.funcionarioPresenter.getListaCargo()){
+        for(Cargo c : this.funcionarioPresenter.getListaCargo()){
             if(c.getId() == id){
                 return funcionarioPresenter.getListaCargo().indexOf(c);
             }

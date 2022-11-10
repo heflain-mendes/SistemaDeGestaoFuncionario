@@ -4,7 +4,7 @@
  */
 package com.mycompany.business.calculobonus;
 
-import com.mycompany.model.Bonus;
+import com.mycompany.model.BonusProcessado;
 import com.mycompany.model.Funcionario;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,11 +24,11 @@ public class ExecutaCalculoBonus {
         this.calculosBonus = calculosBonus;
     }
     
-    public List<Bonus> calcular(Funcionario funcionario, LocalDate data) throws Exception{
-        List<Bonus> listBonus = new ArrayList();
+    public List<BonusProcessado> calcular(Funcionario funcionario, LocalDate data) throws Exception{
+        List<BonusProcessado> listBonus = new ArrayList();
         
         for(ICalculoBonus calculoBonus : calculosBonus){
-           Bonus bonus = calculoBonus.calcular(funcionario, data);
+           BonusProcessado bonus = calculoBonus.calcular(funcionario, data);
            
            if(bonus != null){
                listBonus.add(bonus);

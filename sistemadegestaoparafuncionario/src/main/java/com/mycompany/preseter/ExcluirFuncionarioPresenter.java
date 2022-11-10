@@ -4,7 +4,7 @@
  */
 package com.mycompany.preseter;
 
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.model.Funcionario;
 import com.mycompany.view.ExcluirFuncionarioView;
 import java.awt.event.ActionEvent;
@@ -61,7 +61,7 @@ public class ExcluirFuncionarioPresenter {
     }
     
     private void excluir() throws Exception, SQLException{
-        DAOSingleton instance = DAOSingleton.getInstance();
+        DAOUtilitarios instance = DAOUtilitarios.getInstance();
         instance.getFuncionarioDAO().remover(funcionario);
         instance.getBonusDAO().removerTodos(funcionario.getId());
         instance.getFaltaDAO().remover(funcionario.getId());

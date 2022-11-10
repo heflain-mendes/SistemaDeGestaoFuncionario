@@ -4,8 +4,8 @@
  */
 package com.mycompany.preseter;
 
-import com.mycompany.dao.DAOSingleton;
-import com.mycompany.model.Bonus;
+import com.mycompany.dao.DAOUtilitarios;
+import com.mycompany.model.BonusProcessado;
 import com.mycompany.model.Funcionario;
 import com.mycompany.view.VisualizarBonusView;
 import java.awt.event.ActionEvent;
@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.mycompany.dao.interfaces.IBonusFuncionarioDAO;
-import com.mycompany.model.TipoCargo;
+import com.mycompany.model.Cargo;
 
 /**
  *
@@ -54,9 +54,9 @@ public class VisualizarBonusPresenter {
         modelo.addColumn("tipo bonus");
         modelo.addColumn("Valor Bonus");
 
-        IBonusFuncionarioDAO bonusDAO = DAOSingleton.getInstance().getBonusDAO();
+        IBonusFuncionarioDAO bonusDAO = DAOUtilitarios.getInstance().getBonusDAO();
         try {
-            for (Bonus b : bonusDAO.obter(funcionario.getId())) {
+            for (BonusProcessado b : bonusDAO.obter(funcionario.getId())) {
                 modelo.addRow(new Object[]{
                     b.getData().format(formatter),
                     obterCargoPorId(b.getCargo()).getNome(),
@@ -80,9 +80,9 @@ public class VisualizarBonusPresenter {
         view.dispose();
     }
     
-    private TipoCargo obterCargoPorId(int id){
+    private Cargo obterCargoPorId(int id){
         try {
-            return DAOSingleton.getInstance().getTipoCargoDAO().obter(id);
+            return DAOUtilitarios.getInstance().getTipoCargoDAO().obter(id);
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(

@@ -4,7 +4,7 @@
  */
 package com.mycompany;
 
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.dao.factory.DAOSQLiteFactory;
 import com.mycompany.preseter.PrincipalPresenter;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -39,7 +39,7 @@ public class Sistemadegestaoparafuncionario {
         String bancoDados = dotenv.get("BANCO_DE_DADOS");
         if ("SQLite".equals(bancoDados)) {
             try {
-                DAOSingleton.configureInstance(new DAOSQLiteFactory());
+                DAOUtilitarios.configureInstance(new DAOSQLiteFactory());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
                         ex.getMessage(),

@@ -4,7 +4,7 @@
  */
 package com.mycompany.preseter.states;
 
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.model.Funcionario;
 import com.mycompany.preseter.FuncionarioPresenter;
 import com.mycompany.view.FuncionarioView;
@@ -61,7 +61,7 @@ public class FuncionarioInclusaoState extends FuncionarioState{
                 view.getCbFuncionarioDoMes().isSelected()
         );
         
-        funcionario = DAOSingleton.getInstance().getFuncionarioDAO().salvar(funcionario);
+        funcionario = DAOUtilitarios.getInstance().getFuncionarioDAO().salvar(funcionario);
         
         this.funcionarioPresenter.setFuncionario(funcionario);
         

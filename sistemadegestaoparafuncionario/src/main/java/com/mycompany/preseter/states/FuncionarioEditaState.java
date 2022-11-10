@@ -4,7 +4,7 @@
  */
 package com.mycompany.preseter.states;
 
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.model.Funcionario;
 import com.mycompany.preseter.FuncionarioPresenter;
 import com.mycompany.view.FuncionarioView;
@@ -58,16 +58,16 @@ public class FuncionarioEditaState extends FuncionarioState {
         funcionario.setDistanciaDoTrabalho(Double.parseDouble(view.getTxtDistancia().getText()));
         funcionario.setFuncionairoDoMes(view.getCbFuncionarioDoMes().isSelected());
 
-        DAOSingleton.getInstance().getFuncionarioDAO().atualizar(funcionario);
+        DAOUtilitarios.getInstance().getFuncionarioDAO().atualizar(funcionario);
 
         funcionarioPresenter.setFuncionarioState(new FuncionarioVisualizacaoState(funcionarioPresenter));
     }
 
     private int obterCargoPorNome(String nome) throws Exception {
-        return DAOSingleton.getInstance().getTipoCargoDAO().obterId(nome);
+        return DAOUtilitarios.getInstance().getTipoCargoDAO().obterId(nome);
     }
     
     private int obterBonusPorNome(String nome) throws Exception{
-        return DAOSingleton.getInstance().getTipoBonusDAO().obterId(nome);
+        return DAOUtilitarios.getInstance().getTipoBonusDAO().obterId(nome);
     }
 }

@@ -4,10 +4,10 @@
  */
 package com.mycompany.business.calculobonus;
 
-import com.mycompany.dao.DAOSingleton;
-import com.mycompany.model.Bonus;
+import com.mycompany.dao.DAOUtilitarios;
+import com.mycompany.model.BonusProcessado;
 import com.mycompany.model.Funcionario;
-import com.mycompany.model.TipoBonus;
+import com.mycompany.model.Bonus;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
@@ -18,13 +18,13 @@ import javax.swing.JOptionPane;
 public class BonusHonra implements ICalculoBonus{
 
     @Override
-    public Bonus calcular(Funcionario funcionario, LocalDate data) {
+    public BonusProcessado calcular(Funcionario funcionario, LocalDate data) {
         if(funcionario == null || data == null){
             throw new NullPointerException("funcionario ou data invalidos");
         }
         
-        TipoBonus bonus = obterBonus(funcionario.getBonusHonra());
-        return new Bonus(
+        Bonus bonus = obterBonus(funcionario.getBonusHonra());
+        return new BonusProcessado(
                 bonus.getNoma(), 
                 funcionario.getSalarioBaseAtual() * bonus.getPorcentagem(),
                 funcionario.getCargo(),
@@ -33,9 +33,9 @@ public class BonusHonra implements ICalculoBonus{
     }
     
     
-    private TipoBonus obterBonus(int id){
+    private Bonus obterBonus(int id){
         try {
-            return DAOSingleton.getInstance().getTipoBonusDAO().obter(id);
+            return DAOUtilitarios.getInstance().getTipoBonusDAO().obter(id);
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
