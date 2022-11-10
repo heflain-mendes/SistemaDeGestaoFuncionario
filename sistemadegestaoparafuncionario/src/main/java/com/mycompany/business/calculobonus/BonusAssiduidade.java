@@ -4,8 +4,8 @@
  */
 package com.mycompany.business.calculobonus;
 
-import com.mycompany.dao.DAOSingleton;
-import com.mycompany.model.Bonus;
+import com.mycompany.dao.DAOUtilitarios;
+import com.mycompany.model.BonusProcessado;
 import com.mycompany.model.Falta;
 import com.mycompany.model.Funcionario;
 import java.time.LocalDate;
@@ -17,13 +17,13 @@ import java.time.LocalDate;
 public class BonusAssiduidade implements ICalculoBonus{
 
     @Override
-    public Bonus calcular(Funcionario funcionario, LocalDate data) throws Exception{
+    public BonusProcessado calcular(Funcionario funcionario, LocalDate data) throws Exception{
         
         
         if(funcionario == null || data == null){
             throw new NullPointerException("funcionario ou data não são validos");
         }
-        Falta falta = DAOSingleton.getInstance()
+        Falta falta = DAOUtilitarios.getInstance()
                 .getFaltaDAO()
                 .obterPorFuncionarioData(funcionario.getId(), data);
         
@@ -31,7 +31,7 @@ public class BonusAssiduidade implements ICalculoBonus{
             return null;
         }
         
-        int qtdFalta = funcionario.getfaltaPelaData(data).getQuantidade();
+        int qtdFalta = falta.getQuantidade();
         double valor;
         
         if(qtdFalta == 0){
@@ -45,7 +45,7 @@ public class BonusAssiduidade implements ICalculoBonus{
         }
         
         if(valor != 0){
-            return new Bonus("distancia do trabalho", valor,funcionario.getCargo(), data);
+            return new BonusProcessado("distancia do trabalho", valor,funcionario.getCargo(), data);
         }
         
         return null;

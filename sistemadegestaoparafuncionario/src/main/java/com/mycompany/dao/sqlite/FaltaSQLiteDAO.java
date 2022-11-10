@@ -27,7 +27,7 @@ public class FaltaSQLiteDAO implements IFaltaDAO {
                 + " id_funcionario INTEGER NOT NULL,"
                 + " qtd INTEGER NOT NULL,"
                 + " data_falta TEXT NOT NULL,"
-                + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)  "
+                + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id) "
                 + ");)";
 
         try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
@@ -123,7 +123,6 @@ public class FaltaSQLiteDAO implements IFaltaDAO {
                 return f;
             }
         }
-        
         return null;
     }
 }

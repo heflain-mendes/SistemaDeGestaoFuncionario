@@ -4,7 +4,7 @@
  */
 package com.mycompany.business.calculobonus;
 
-import com.mycompany.model.Bonus;
+import com.mycompany.model.BonusProcessado;
 import com.mycompany.model.Funcionario;
 import java.time.LocalDate;
 
@@ -13,5 +13,5 @@ import java.time.LocalDate;
  * @author heflain
  */
 public interface ICalculoBonus {
-    public Bonus calcular(Funcionario funcionario, LocalDate data) throws Exception;
+    public BonusProcessado calcular(Funcionario funcionario, LocalDate data) throws Exception;
 }

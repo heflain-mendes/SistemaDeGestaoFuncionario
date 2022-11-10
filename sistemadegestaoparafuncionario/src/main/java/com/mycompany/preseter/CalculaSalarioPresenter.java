@@ -8,10 +8,10 @@ import com.mycompany.business.calculobonus.ExecutaCalculoBonus;
 import com.mycompany.business.calculobonus.calculosbonusfactories.ListaCalculoBonusComumFactory;
 import com.mycompany.business.calculosalario.CalculoSalario;
 import com.mycompany.business.calculosestatistico.ExecutaCalculoEstatistico;
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.dao.interfaces.IFuncionarioDAO;
 import com.mycompany.dao.interfaces.ISalarioDAO;
-import com.mycompany.model.Bonus;
+import com.mycompany.model.BonusProcessado;
 import com.mycompany.model.Funcionario;
 import com.mycompany.model.Salario;
 import com.mycompany.service.CalculaBonusService;
@@ -92,8 +92,8 @@ public class CalculaSalarioPresenter {
 
         modelo.setRowCount(0);
 
-        IFuncionarioDAO ifdao = DAOSingleton.getInstance().getFuncionarioDAO();
-        ISalarioDAO isdao = DAOSingleton.getInstance().getSalarioDAO();
+        IFuncionarioDAO ifdao = DAOUtilitarios.getInstance().getFuncionarioDAO();
+        ISalarioDAO isdao = DAOUtilitarios.getInstance().getSalarioDAO();
 
         try {
             for (Funcionario f : ifdao.obterTodos()) {
@@ -134,8 +134,8 @@ public class CalculaSalarioPresenter {
 
         modelo.setRowCount(0);
 
-        IFuncionarioDAO ifdao = DAOSingleton.getInstance().getFuncionarioDAO();
-        ISalarioDAO isdao = DAOSingleton.getInstance().getSalarioDAO();
+        IFuncionarioDAO ifdao = DAOUtilitarios.getInstance().getFuncionarioDAO();
+        ISalarioDAO isdao = DAOUtilitarios.getInstance().getSalarioDAO();
 
         try {
             for (Funcionario f : ifdao.obterTodos()) {
@@ -189,15 +189,16 @@ public class CalculaSalarioPresenter {
 
         List<Salario> lSalario = new ArrayList<>();
 
-        IFuncionarioDAO ifdao = DAOSingleton.getInstance().getFuncionarioDAO();
+        IFuncionarioDAO ifdao = DAOUtilitarios.getInstance().getFuncionarioDAO();
 
         try {
             for (Funcionario f : ifdao.obterTodos()) {
-                List<Bonus> lBonus = bonusService.calcular(f, data);
+                List<BonusProcessado> lBonus = bonusService.calcular(f, data);
                 lSalario.add(salarioService.calcular(f, lBonus, data));
             }
-
+            System.out.println("Bonus e salarios foram calculados");
             calculoEstatisticoService.calcular(lSalario, data);
+            System.out.println("calculos estatistico ok");
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(

@@ -4,16 +4,12 @@
  */
 package com.mycompany.business.calculobonus;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.mycompany.model.Bonus;
-import com.mycompany.model.BonusArquivo;
+import com.mycompany.dao.DAOUtilitarios;
+import com.mycompany.model.BonusProcessado;
 import com.mycompany.model.Funcionario;
-import io.github.cdimascio.dotenv.Dotenv;
-import java.lang.reflect.Type;
+import com.mycompany.model.Bonus;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,25 +18,33 @@ import java.util.List;
 public class BonusHonra implements ICalculoBonus{
 
     @Override
-    public Bonus calcular(Funcionario funcionario, LocalDate data) {
+    public BonusProcessado calcular(Funcionario funcionario, LocalDate data) {
         if(funcionario == null || data == null){
             throw new NullPointerException("funcionario ou data invalidos");
         }
         
-        BonusArquivo bonusArquivo = obterListaBonus().get(funcionario.getBonusHonra());
-        return new Bonus(
-                bonusArquivo.getBonus(), 
-                funcionario.getSalarioBaseAtual() * bonusArquivo.getPorcentagem(),
+        Bonus bonus = obterBonus(funcionario.getBonusHonra());
+        return new BonusProcessado(
+                bonus.getNoma(), 
+                funcionario.getSalarioBaseAtual() * bonus.getPorcentagem(),
                 funcionario.getCargo(),
                 data
         );
     }
     
-    private List<BonusArquivo> obterListaBonus(){
-        Dotenv dotenv = Dotenv.load();
-        Type tipoLista = new TypeToken<ArrayList<BonusArquivo>>(){}.getType();
-        Gson gson = new Gson();
-        
-        return gson.fromJson(dotenv.get("BONUS"), tipoLista);
+    
+    private Bonus obterBonus(int id){
+        try {
+            return DAOUtilitarios.getInstance().getTipoBonusDAO().obter(id);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage(),
+                    "Erro no sistema", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return null;
     }
 }

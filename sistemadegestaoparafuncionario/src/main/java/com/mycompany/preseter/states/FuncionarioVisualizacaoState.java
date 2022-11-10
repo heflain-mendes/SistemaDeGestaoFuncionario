@@ -4,8 +4,9 @@
  */
 package com.mycompany.preseter.states;
 
-import com.mycompany.dao.DAOSingleton;
 import com.mycompany.model.Funcionario;
+import com.mycompany.model.Bonus;
+import com.mycompany.model.Cargo;
 import com.mycompany.preseter.ExcluirFuncionarioPresenter;
 import com.mycompany.preseter.FuncionarioPresenter;
 import com.mycompany.view.FuncionarioView;
@@ -32,8 +33,8 @@ public class FuncionarioVisualizacaoState extends FuncionarioState{
         Funcionario funcionario = this.funcionarioPresenter.getFuncionario();
         
         view.getTxtNome().setText(funcionario.getNome());
-        view.getCbBonus().setSelectedIndex(funcionario.getBonusHonra());
-        view.getCbxCargo().setSelectedIndex(funcionario.getCargo());
+        view.getCbBonus().setSelectedIndex(obterIndexBonus(funcionario.getBonusHonra()));
+        view.getCbxCargo().setSelectedIndex(obterIndexCargo(funcionario.getCargo()));
         view.getTxtAdmissao().setText(funcionario.getDataInicioNaEmpresa().format(formatter));
         view.getTxtDistancia().setText(String.valueOf(funcionario.getDistanciaDoTrabalho()));
         view.getTxtSalario().setText(String.valueOf(funcionario.getSalarioBaseAtual()));
@@ -55,5 +56,26 @@ public class FuncionarioVisualizacaoState extends FuncionarioState{
     @Override
     public void editar() throws Exception, SQLException {
         this.funcionarioPresenter.setFuncionarioState(new FuncionarioEditaState(this.funcionarioPresenter));
+    }
+    
+    private int obterIndexBonus(int id){
+        for(Bonus b : this.funcionarioPresenter.getListaBonus()){
+            if(b.getId() == id){
+                return funcionarioPresenter.getListaBonus().indexOf(b);
+            }
+        }
+        
+        return -1;
+    }
+    
+    private int obterIndexCargo(int id){
+        for(Cargo c : this.funcionarioPresenter.getListaCargo()){
+            if(c.getId() == id){
+                return funcionarioPresenter.getListaCargo().indexOf(c);
+            }
+        }
+        
+        System.out.println("Chegou aki");
+        return -1;
     }
 }

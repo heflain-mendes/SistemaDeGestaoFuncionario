@@ -22,10 +22,6 @@ public class Funcionario {
     private double distanciaDoTrabalho;
     private boolean funcionairoDoMes;
 
-    private List<Falta> faltas;
-    private List<Bonus> bonus;
-    private List<Salario> salarios;
-
     public Funcionario(int id,String nome, int cargo, int bonus, int idade, LocalDate dataInicioNaEmpresa, double salarioBaseAtual, double distanciaDoTrabalho, boolean funcionairoDoMes) {
         this.id = id;
         this.nome = nome;
@@ -76,18 +72,6 @@ public class Funcionario {
         return salarioBaseAtual;
     }
 
-    public List<Falta> getFaltas() {
-        return faltas;
-    }
-
-    public List<Bonus> getBonus() {
-        return bonus;
-    }
-
-    public List<Salario> getSalarios() {
-        return salarios;
-    }
-
     public int getIdade() {
         return idade;
     }
@@ -126,28 +110,6 @@ public class Funcionario {
 
     public void setSalarioBaseAtual(Double salarioBaseAtual) {
         this.salarioBaseAtual = salarioBaseAtual;
-    }
-
-    public void setFaltas(List<Falta> faltas) {
-        this.faltas = faltas;
-    }
-
-    public void setBonus(List<Bonus> bonus) {
-        this.bonus = bonus;
-    }
-
-    public void setSalarios(List<Salario> salarios) {
-        this.salarios = salarios;
-    }
-    
-    public Falta getfaltaPelaData(LocalDate date){
-        for(Falta f : this.faltas){
-            if(f.getDate().getMonth().equals(date.getMonth()) &&
-               f.getDate().getYear() == date.getYear())
-                return f;
-        }
-        
-        return null;
     }
 
     public void setFuncionairoDoMes(boolean funcionairoDoMes) {

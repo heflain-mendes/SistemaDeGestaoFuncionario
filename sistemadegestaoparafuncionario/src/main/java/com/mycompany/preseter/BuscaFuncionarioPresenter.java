@@ -4,19 +4,13 @@
  */
 package com.mycompany.preseter;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.dao.interfaces.IFuncionarioDAO;
-import com.mycompany.model.CargoArquivo;
 import com.mycompany.model.Funcionario;
+import com.mycompany.model.Cargo;
 import com.mycompany.view.BuscaFuncionarioView;
-import io.github.cdimascio.dotenv.Dotenv;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -93,9 +87,7 @@ public class BuscaFuncionarioPresenter {
 
         modelo.setRowCount(0);
 
-        IFuncionarioDAO ifdao = DAOSingleton.getInstance().getFuncionarioDAO();
-
-        List<CargoArquivo> cargos = this.obterListaCargos();
+        IFuncionarioDAO ifdao = DAOUtilitarios.getInstance().getFuncionarioDAO();
 
         try {
             for (Funcionario f : ifdao.obterTodos()) {
@@ -104,7 +96,7 @@ public class BuscaFuncionarioPresenter {
                             f.getId(),
                             f.getNome(),
                             f.getIdade(),
-                            cargos.get(f.getCargo()).getCargo(),
+                            obterCargoPorId(f.getCargo()).getNome(),
                             f.getSalarioBaseAtual()
                         });
             }
@@ -128,13 +120,19 @@ public class BuscaFuncionarioPresenter {
         }
     }
 
-    private List<CargoArquivo> obterListaCargos() {
-        Dotenv dotenv = Dotenv.load();
-        Type tipoLista = new TypeToken<ArrayList<CargoArquivo>>() {
-        }.getType();
-        Gson gson = new Gson();
-
-        return gson.fromJson(dotenv.get("CARGOS"), tipoLista);
+    private Cargo obterCargoPorId(int id){
+        try {
+            return DAOUtilitarios.getInstance().getTipoCargoDAO().obter(id);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    view,
+                    ex.getMessage(),
+                    "Erro no sistema", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return null;
     }
 
     private void buscar() {
@@ -147,9 +145,8 @@ public class BuscaFuncionarioPresenter {
 
         modelo.setRowCount(0);
 
-        IFuncionarioDAO ifdao = DAOSingleton.getInstance().getFuncionarioDAO();
+        IFuncionarioDAO ifdao = DAOUtilitarios.getInstance().getFuncionarioDAO();
 
-        List<CargoArquivo> cargos = this.obterListaCargos();
         String pesquisa = view.getTxtNome().getText();
 
         try {
@@ -159,7 +156,7 @@ public class BuscaFuncionarioPresenter {
                             f.getId(),
                             f.getNome(),
                             f.getIdade(),
-                            cargos.get(f.getCargo()).getCargo(),
+                            obterCargoPorId(f.getCargo()),
                             f.getSalarioBaseAtual()
                         });
             }
@@ -200,7 +197,7 @@ public class BuscaFuncionarioPresenter {
 
     private Funcionario obterFuncionario() {
         if (view.getTbListaFuncionario().getSelectedRowCount() > 0) {
-            IFuncionarioDAO ifdao = DAOSingleton.getInstance().getFuncionarioDAO();
+            IFuncionarioDAO ifdao = DAOUtilitarios.getInstance().getFuncionarioDAO();
             Integer id = (Integer) modelo.getValueAt(
                     view.getTbListaFuncionario().getSelectedRow(),
                     0

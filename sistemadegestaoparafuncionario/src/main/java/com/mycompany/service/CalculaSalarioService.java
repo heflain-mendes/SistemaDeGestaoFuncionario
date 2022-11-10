@@ -4,13 +4,13 @@
  */
 package com.mycompany.service;
 
-import com.mycompany.model.Bonus;
+import com.mycompany.model.BonusProcessado;
 import com.mycompany.model.Funcionario;
 import com.mycompany.model.Salario;
 import java.time.LocalDate;
 import java.util.List;
 import com.mycompany.business.calculosalario.ICalculoSalario;
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import java.sql.SQLException;
 
 /**
@@ -24,9 +24,9 @@ public class CalculaSalarioService {
         this.calculoSalario = calculoSalario;
     }
     
-    public Salario calcular(Funcionario funcionario, List<Bonus> listaBonus, LocalDate data) throws Exception, SQLException{
+    public Salario calcular(Funcionario funcionario, List<BonusProcessado> listaBonus, LocalDate data) throws Exception, SQLException{
         Salario salario = calculoSalario.calcular(funcionario, data, listaBonus);
-        DAOSingleton.getInstance().getSalarioDAO().salvar(funcionario.getId(), salario);
+        DAOUtilitarios.getInstance().getSalarioDAO().salvar(funcionario.getId(), salario);
         return salario;
     }
 }

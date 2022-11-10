@@ -4,7 +4,7 @@
  */
 package com.mycompany.preseter;
 
-import com.mycompany.dao.DAOSingleton;
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.dao.interfaces.ICalculoEstatisticoDAO;
 import com.mycompany.model.CalculoEstatistico;
 import com.mycompany.view.CalculoEstatisticoView;
@@ -51,7 +51,7 @@ public class CalculoEstatisticoPresenter {
         modelo.addColumn("coeficiente variação");
 
         ICalculoEstatisticoDAO calculoEstatisticoDAO
-                = DAOSingleton.getInstance().getCalculoEstatisticoDAO();
+                = DAOUtilitarios.getInstance().getCalculoEstatisticoDAO();
 
         try {
             for (CalculoEstatistico ce : calculoEstatisticoDAO.obterTodos()) {
