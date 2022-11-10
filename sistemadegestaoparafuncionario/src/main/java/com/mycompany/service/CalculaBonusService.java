@@ -6,12 +6,12 @@ package com.mycompany.service;
 
 import com.mycompany.business.calculobonus.ExecutaCalculoBonus;
 import com.mycompany.dao.DAOSingleton;
-import com.mycompany.dao.interfaces.IBonusDAO;
 import com.mycompany.model.Bonus;
 import com.mycompany.model.Funcionario;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import com.mycompany.dao.interfaces.IBonusFuncionarioDAO;
 
 /**
  *
@@ -29,7 +29,7 @@ public class CalculaBonusService{
     
     public List<Bonus> calcular(Funcionario funcionario, LocalDate data) throws Exception, SQLException{
         List<Bonus> listBonus = calculoBonus.calcular(funcionario, data);
-        IBonusDAO daoS = DAOSingleton.getInstance().getBonusDAO();
+        IBonusFuncionarioDAO daoS = DAOSingleton.getInstance().getBonusDAO();
         
         for(Bonus bonus : listBonus){
             daoS.salvar(funcionario.getId(), bonus);

@@ -4,7 +4,6 @@
  */
 package com.mycompany.dao.sqlite;
 
-import com.mycompany.dao.interfaces.IBonusDAO;
 import com.mycompany.model.Bonus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,12 +13,13 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import com.mycompany.dao.interfaces.IBonusFuncionarioDAO;
 
 /**
  *
  * @author heflain
  */
-public class BonusSQLiteDAO implements IBonusDAO {
+public class BonusSQLiteDAO implements IBonusFuncionarioDAO {
 
     public BonusSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS bonus("
@@ -60,7 +60,7 @@ public class BonusSQLiteDAO implements IBonusDAO {
 
         } catch (SQLException e) {
             //System.out.println(e.getMessage());
-            //e.printStackTrace();
+            e.printStackTrace();
             throw new SQLException("Não foi possivel salvar informações do bonus");
         }
     }

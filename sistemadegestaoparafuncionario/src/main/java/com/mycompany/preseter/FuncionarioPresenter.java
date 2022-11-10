@@ -4,20 +4,16 @@
  */
 package com.mycompany.preseter;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.mycompany.model.BonusArquivo;
-import com.mycompany.model.CargoArquivo;
+import com.mycompany.dao.DAOSingleton;
 import com.mycompany.model.Funcionario;
+import com.mycompany.model.TipoBonus;
+import com.mycompany.model.TipoCargo;
 import com.mycompany.preseter.states.FuncionarioInclusaoState;
 import com.mycompany.preseter.states.FuncionarioState;
 import com.mycompany.preseter.states.FuncionarioVisualizacaoState;
 import com.mycompany.view.FuncionarioView;
-import io.github.cdimascio.dotenv.Dotenv;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -30,16 +26,22 @@ public class FuncionarioPresenter {
     private Funcionario funcionario;
     private FuncionarioView view;
     private FuncionarioState funcionarioState;
+    private List<TipoCargo> listaCargo;
+    private List<TipoBonus> listaBonus;
 
     public FuncionarioPresenter(Funcionario funcionario) {
         this.view = new FuncionarioView();
         this.funcionario = funcionario;
+        listaCargo = obterListaCargos();
+        listaBonus = obterListaBonus();
         this.iniciarCommponentes();
         if(this.funcionario == null){
             new FuncionarioInclusaoState(this);
         }else{
             new FuncionarioVisualizacaoState(this);
         }
+        
+        
     }
     
     public FuncionarioView getView(){
@@ -63,13 +65,13 @@ public class FuncionarioPresenter {
         this.view.getCbBonus().removeAllItems();
         this.view.getCbxCargo().removeAllItems();
         
-        for(CargoArquivo c : obterListaCargos()){
-            this.view.getCbxCargo().addItem(c.getCargo());
+        for(TipoCargo c : listaCargo){
+            this.view.getCbxCargo().addItem(c.getNome());
         }
         
         
-        for(BonusArquivo b : obterListaBonus()){
-            this.view.getCbBonus().addItem(b.getBonus());
+        for(TipoBonus b : listaBonus){
+            this.view.getCbBonus().addItem(b.getNoma());
         }
         
         this.view.getBtnFechar().addActionListener(new ActionListener(){
@@ -113,29 +115,43 @@ public class FuncionarioPresenter {
         });
     }
     
-    private List<CargoArquivo> obterListaCargos(){
-        Dotenv dotenv = Dotenv.load();
-        Type tipoLista = new TypeToken<ArrayList<CargoArquivo>>(){}.getType();
-        Gson gson = new Gson();
-        
-        return gson.fromJson(dotenv.get("CARGOS"), tipoLista);
+    private List<TipoCargo> obterListaCargos(){
+        try {
+            return DAOSingleton.getInstance().getTipoCargoDAO().obterTodos();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    view,
+                    ex.getMessage(),
+                    "Erro no sistema", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return null;
     }
     
-    private List<BonusArquivo> obterListaBonus(){
-        Dotenv dotenv = Dotenv.load();
-        Type tipoLista = new TypeToken<ArrayList<BonusArquivo>>(){}.getType();
-        Gson gson = new Gson();
-        
-        return gson.fromJson(dotenv.get("BONUS"), tipoLista);
+    private List<TipoBonus> obterListaBonus(){
+        try {
+            return DAOSingleton.getInstance().getTipoBonusDAO().obterTodos();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    view,
+                    ex.getMessage(),
+                    "Erro no sistema", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+        } 
+        return null;
     }
     
-    public void salvar(){
+    private  void salvar(){
         try {
             this.funcionarioState.salvar();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
-                    null,
+                    view,
                     ex.getMessage(),
                     "Erro no sistema", 
                     JOptionPane.ERROR_MESSAGE
@@ -147,13 +163,13 @@ public class FuncionarioPresenter {
         view.dispose();
     }
     
-    public void editar(){
+    private void editar(){
         try {
             this.funcionarioState.editar();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
-                    null,
+                    view,
                     ex.getMessage(),
                     "Erro no sistema", 
                     JOptionPane.ERROR_MESSAGE
@@ -161,13 +177,13 @@ public class FuncionarioPresenter {
         }
     }
     
-    public void excluir(){
+    private void excluir(){
         try {
             this.funcionarioState.excluir();
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(
-                    null,
+                    view,
                     ex.getMessage(),
                     "Erro no sistema", 
                     JOptionPane.ERROR_MESSAGE
@@ -175,7 +191,15 @@ public class FuncionarioPresenter {
         }
     }
     
-    public void adicionarFalta(){
+    private void adicionarFalta(){
         new AdicionarFaltaPresenter(funcionario);
+    }
+
+    public List<TipoCargo> getListaCargo() {
+        return listaCargo;
+    }
+
+    public List<TipoBonus> getListaBonus() {
+        return listaBonus;
     }
 }

@@ -31,7 +31,9 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
                 + " data_inicio TEXT NOT NULL,"
                 + " salario_base REAL NOT NULL,"
                 + " distancia_trabalho REAL NOT NULL,"
-                + " funcionario_mes INTEGER NOT NULL"
+                + " funcionario_mes INTEGER NOT NULL, "
+                + " FOREIGN KEY (cargo) REFERENCES tipo_cargos (id), "
+                + " FOREIGN KEY (bonus_honra) REFERENCES tipo_bonus (id) "
                 + ")";
 
         try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
@@ -67,7 +69,7 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
 
         } catch (SQLException e) {
             //System.out.println(e.getMessage());
-            //e.printStackTrace();
+            e.printStackTrace();
             throw new SQLException("Não foi possivel salvar informações do funcionario: " + funcionario.getNome() + " na tabela funcionario");
         }
 
@@ -144,7 +146,7 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
 
     @Override
     public List<Funcionario> obterTodos() throws Exception {
-        String sql = "SELECT * FROM funcionarios";
+        String sql = "SELECT * FROM funcionarios LIMIT 100";
         List<Funcionario> funcionarios = new ArrayList<>();
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql);  ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {

@@ -4,16 +4,12 @@
  */
 package com.mycompany.business.calculobonus;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.mycompany.dao.DAOSingleton;
 import com.mycompany.model.Bonus;
-import com.mycompany.model.CargoArquivo;
 import com.mycompany.model.Funcionario;
-import io.github.cdimascio.dotenv.Dotenv;
-import java.lang.reflect.Type;
+import com.mycompany.model.TipoCargo;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,20 +23,27 @@ public class BonusCargo implements ICalculoBonus{
             throw new NullPointerException("funcionario ou data invalidos");
         }
         
-        CargoArquivo cargoArquivo = obterListaCargos().get(funcionario.getCargo());
+        TipoCargo cargo = obterCargo(funcionario.getId());
         return new Bonus(
                 "bonus por cargo", 
-                funcionario.getSalarioBaseAtual() * cargoArquivo.getPorcentagem(),
+                funcionario.getSalarioBaseAtual() * cargo.getPorcentagemBonus(),
                 funcionario.getCargo(),
                 data
         );
     }
     
-    private List<CargoArquivo> obterListaCargos(){
-        Dotenv dotenv = Dotenv.load();
-        Type tipoLista = new TypeToken<ArrayList<CargoArquivo>>(){}.getType();
-        Gson gson = new Gson();
-        
-        return gson.fromJson(dotenv.get("CARGOS"), tipoLista);
+    private TipoCargo obterCargo(int id){
+        try {
+            return DAOSingleton.getInstance().getTipoCargoDAO().obter(id);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage(),
+                    "Erro no sistema", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return null;
     }
 }

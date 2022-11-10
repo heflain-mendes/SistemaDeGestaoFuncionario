@@ -4,23 +4,17 @@
  */
 package com.mycompany.preseter;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mycompany.dao.DAOSingleton;
-import com.mycompany.dao.interfaces.IBonusDAO;
 import com.mycompany.model.Bonus;
-import com.mycompany.model.CargoArquivo;
 import com.mycompany.model.Funcionario;
 import com.mycompany.view.VisualizarBonusView;
-import io.github.cdimascio.dotenv.Dotenv;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Type;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import com.mycompany.dao.interfaces.IBonusFuncionarioDAO;
+import com.mycompany.model.TipoCargo;
 
 /**
  *
@@ -60,13 +54,12 @@ public class VisualizarBonusPresenter {
         modelo.addColumn("tipo bonus");
         modelo.addColumn("Valor Bonus");
 
-        IBonusDAO bonusDAO = DAOSingleton.getInstance().getBonusDAO();
-        List<CargoArquivo> cargos = this.obterListaCargos();
+        IBonusFuncionarioDAO bonusDAO = DAOSingleton.getInstance().getBonusDAO();
         try {
             for (Bonus b : bonusDAO.obter(funcionario.getId())) {
                 modelo.addRow(new Object[]{
                     b.getData().format(formatter),
-                    cargos.get(b.getCargo()),
+                    obterCargoPorId(b.getCargo()).getNome(),
                     b.getTipo(),
                     b.getValor()
                 });
@@ -87,12 +80,18 @@ public class VisualizarBonusPresenter {
         view.dispose();
     }
     
-    private List<CargoArquivo> obterListaCargos() {
-        Dotenv dotenv = Dotenv.load();
-        Type tipoLista = new TypeToken<ArrayList<CargoArquivo>>() {
-        }.getType();
-        Gson gson = new Gson();
-
-        return gson.fromJson(dotenv.get("CARGOS"), tipoLista);
+    private TipoCargo obterCargoPorId(int id){
+        try {
+            return DAOSingleton.getInstance().getTipoCargoDAO().obter(id);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    view,
+                    ex.getMessage(),
+                    "Erro no sistema", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        return null;
     }
 }

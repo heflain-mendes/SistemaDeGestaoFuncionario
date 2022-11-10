@@ -4,7 +4,6 @@
  */
 package com.mycompany.dao.factory;
 
-import com.mycompany.dao.interfaces.IBonusDAO;
 import com.mycompany.dao.interfaces.ICalculoEstatisticoDAO;
 import com.mycompany.dao.interfaces.IFaltaDAO;
 import com.mycompany.dao.interfaces.IFuncionarioDAO;
@@ -15,6 +14,11 @@ import com.mycompany.dao.sqlite.FaltaSQLiteDAO;
 import com.mycompany.dao.sqlite.FuncionarioSQLiteDAO;
 import com.mycompany.dao.sqlite.SalarioSQLiteDAO;
 import java.sql.SQLException;
+import com.mycompany.dao.interfaces.IBonusFuncionarioDAO;
+import com.mycompany.dao.interfaces.ITipoBonusDAO;
+import com.mycompany.dao.interfaces.ITipoCargoDAO;
+import com.mycompany.dao.sqlite.TipoBonusSQLiteDAO;
+import com.mycompany.dao.sqlite.TipoCargoSQLiteDAO;
 
 /**
  *
@@ -23,7 +27,7 @@ import java.sql.SQLException;
 public class DAOSQLiteFactory implements IDAOFactory{
 
     @Override
-    public IBonusDAO getBonusDAO() throws SQLException, Exception{
+    public IBonusFuncionarioDAO getBonusDAO() throws SQLException, Exception{
         return new BonusSQLiteDAO();
     }
 
@@ -46,5 +50,14 @@ public class DAOSQLiteFactory implements IDAOFactory{
     public ICalculoEstatisticoDAO getCalculoEstatisticoDAO() throws SQLException, Exception{
         return new CalculoEstatisticoSQLiteDAO();
     }
-    
+
+    @Override
+    public ITipoBonusDAO getTipoBonusDAO() throws SQLException, Exception {
+        return new TipoBonusSQLiteDAO();
+    }
+
+    @Override
+    public ITipoCargoDAO getTipoCargoDAO() throws SQLException, Exception {
+        return new TipoCargoSQLiteDAO();
+    }
 }

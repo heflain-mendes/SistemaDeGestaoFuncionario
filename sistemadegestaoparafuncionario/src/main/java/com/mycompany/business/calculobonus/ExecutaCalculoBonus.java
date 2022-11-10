@@ -4,7 +4,6 @@
  */
 package com.mycompany.business.calculobonus;
 
-import com.mycompany.business.calculobonus.calculosbonusfactories.ListaCalculoBonusComumFactory;
 import com.mycompany.model.Bonus;
 import com.mycompany.model.Funcionario;
 import java.time.LocalDate;

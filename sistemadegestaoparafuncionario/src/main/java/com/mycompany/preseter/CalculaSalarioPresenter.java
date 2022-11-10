@@ -196,8 +196,9 @@ public class CalculaSalarioPresenter {
                 List<Bonus> lBonus = bonusService.calcular(f, data);
                 lSalario.add(salarioService.calcular(f, lBonus, data));
             }
-
+            System.out.println("Bonus e salarios foram calculados");
             calculoEstatisticoService.calcular(lSalario, data);
+            System.out.println("calculos estatistico ok");
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(

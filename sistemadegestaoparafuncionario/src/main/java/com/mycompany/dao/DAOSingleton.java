@@ -5,12 +5,14 @@
 package com.mycompany.dao;
 
 import com.mycompany.dao.factory.IDAOFactory;
-import com.mycompany.dao.interfaces.IBonusDAO;
 import com.mycompany.dao.interfaces.ICalculoEstatisticoDAO;
 import com.mycompany.dao.interfaces.IFaltaDAO;
 import com.mycompany.dao.interfaces.IFuncionarioDAO;
 import com.mycompany.dao.interfaces.ISalarioDAO;
 import java.sql.SQLException;
+import com.mycompany.dao.interfaces.IBonusFuncionarioDAO;
+import com.mycompany.dao.interfaces.ITipoBonusDAO;
+import com.mycompany.dao.interfaces.ITipoCargoDAO;
 
 /**
  *
@@ -19,11 +21,13 @@ import java.sql.SQLException;
 public class DAOSingleton {
     private static DAOSingleton daoSingleton;
     
-    private IBonusDAO bonusDAO;
+    private IBonusFuncionarioDAO bonusDAO;
     private ICalculoEstatisticoDAO calculoEstatisticoDAO;
     private IFaltaDAO faltaDAO;
     private IFuncionarioDAO funcionarioDAO;
     private ISalarioDAO salarioDAO;
+    private ITipoBonusDAO tipoBonusDAO;
+    private ITipoCargoDAO tipoCargoDAO;
     
     private DAOSingleton() throws SQLException, Exception{
     }
@@ -34,6 +38,8 @@ public class DAOSingleton {
         this.faltaDAO = daoFactory.getFaltaDAO();
         this.funcionarioDAO = daoFactory.getFuncionarioDAO();
         this.calculoEstatisticoDAO = daoFactory.getCalculoEstatisticoDAO();
+        this.tipoCargoDAO = daoFactory.getTipoCargoDAO();
+        this.tipoBonusDAO = daoFactory.getTipoBonusDAO();
     }
     
     public static void configureInstance(IDAOFactory daoFactory) throws Exception{
@@ -48,7 +54,7 @@ public class DAOSingleton {
         return daoSingleton;
     }
 
-    public IBonusDAO getBonusDAO() {
+    public IBonusFuncionarioDAO getBonusDAO() {
         return bonusDAO;
     }
 
@@ -66,5 +72,13 @@ public class DAOSingleton {
 
     public ISalarioDAO getSalarioDAO() {
         return salarioDAO;
+    }
+
+    public ITipoBonusDAO getTipoBonusDAO() {
+        return tipoBonusDAO;
+    }
+
+    public ITipoCargoDAO getTipoCargoDAO() {
+        return tipoCargoDAO;
     }
 }
