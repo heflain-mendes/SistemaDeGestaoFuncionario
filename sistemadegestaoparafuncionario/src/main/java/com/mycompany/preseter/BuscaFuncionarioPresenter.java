@@ -156,7 +156,7 @@ public class BuscaFuncionarioPresenter {
                             f.getId(),
                             f.getNome(),
                             f.getIdade(),
-                            obterCargoPorId(f.getCargo()),
+                            obterCargoPorId(f.getCargo()).getNome(),
                             f.getSalarioBaseAtual()
                         });
             }

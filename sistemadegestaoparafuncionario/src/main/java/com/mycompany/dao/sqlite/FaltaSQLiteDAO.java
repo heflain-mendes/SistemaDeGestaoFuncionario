@@ -24,10 +24,10 @@ public class FaltaSQLiteDAO implements IFaltaDAO {
     public FaltaSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS faltas("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-                + " id_funcionario INTEGER NOT NULL,"
+                + " funcionario INTEGER NOT NULL,"
                 + " qtd INTEGER NOT NULL,"
                 + " data_falta TEXT NOT NULL,"
-                + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id) "
+                + " FOREIGN KEY (funcionario) REFERENCES funcionarios (id) "
                 + ");)";
 
         try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
@@ -44,7 +44,7 @@ public class FaltaSQLiteDAO implements IFaltaDAO {
             throw new Exception("O Metodo salvar da Classe FaltasSQLiteDAO necessita que bonus tenha valores validos");
         }
 
-        String sql = "INSERT INTO faltas (id_funcionario, qtd, data_falta) VALUES ( ?, ?, ?)";
+        String sql = "INSERT INTO faltas (funcionario, qtd, data_falta) VALUES ( ?, ?, ?)";
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -81,7 +81,7 @@ public class FaltaSQLiteDAO implements IFaltaDAO {
 
     @Override
     public void remover(int idFuncionario) throws Exception, SQLException {
-        String sql = "DELETE FROM faltas WHERE id_funcionario = ?";
+        String sql = "DELETE FROM faltas WHERE funcionario = ?";
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idFuncionario);
             ps.executeUpdate();
@@ -92,7 +92,7 @@ public class FaltaSQLiteDAO implements IFaltaDAO {
 
     @Override
     public List<Falta> obterPorFuncionario(int idFuncionario) throws Exception, SQLException {
-        String sql = "SELECT * FROM faltas WHERE id_funcionario = ?";
+        String sql = "SELECT * FROM faltas WHERE funcionario = ?";
 
         List<Falta> faltas = new ArrayList<>();
 
