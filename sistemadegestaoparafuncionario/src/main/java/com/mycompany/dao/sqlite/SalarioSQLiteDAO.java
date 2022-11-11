@@ -26,11 +26,11 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
     public SalarioSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS salarios("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-                + " id_funcionario INTEGER NOT NULL,"
+                + " funcionario INTEGER NOT NULL,"
                 + " salario_base REAL NOT NULL,"
                 + " salario_total REAL NOT NULL,"
                 + " data_salario TEXT NOT NULL,"
-                + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)"
+                + " FOREIGN KEY (funcionario) REFERENCES funcionarios (id)"
                 + ");";
 
         try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
@@ -46,7 +46,7 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
             throw new Exception("O Metodo salvar da Classe SalarioSQLiteDAO necessita que bonus tenha valores validos");
         }
 
-        String sql = "INSERT INTO salarios (id_funcionario, salario_base, salario_total, data_salario) VALUES ( ?, ?, ?, ?)";
+        String sql = "INSERT INTO salarios (funcionario, salario_base, salario_total, data_salario) VALUES ( ?, ?, ?, ?)";
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -65,7 +65,7 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
 
     @Override
     public List<Salario> obter(int idFuncionario) throws Exception, SQLException {
-        String sql = "SELECT * FROM salarios WHERE id_funcionario = ?";
+        String sql = "SELECT * FROM salarios WHERE funcionario = ?";
 
         List<Salario> salarios = new ArrayList<>();
 
@@ -109,7 +109,7 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
 
     @Override
     public void remover(int idFuncionario) throws Exception, SQLException {
-        String sql = "DELETE FROM salarios WHERE id_funcionario = ?";
+        String sql = "DELETE FROM salarios WHERE funcionario = ?";
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idFuncionario);
             ps.executeUpdate();
@@ -121,7 +121,7 @@ public class SalarioSQLiteDAO implements ISalarioDAO {
     @Override
     public List<Salario> obterPorData(int idFuncionario, LocalDate data) throws Exception, SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String sql = "SELECT * FROM salarios WHERE id_funcionario = ?";
+        String sql = "SELECT * FROM salarios WHERE funcionario = ?";
 
         List<Salario> salarios = new ArrayList<>();
 

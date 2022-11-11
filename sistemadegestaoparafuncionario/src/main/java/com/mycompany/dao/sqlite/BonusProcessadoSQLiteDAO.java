@@ -24,12 +24,12 @@ public class BonusProcessadoSQLiteDAO implements IBonusFuncionarioDAO {
     public BonusProcessadoSQLiteDAO() throws SQLException, Exception {
         String sql = "CREATE TABLE IF NOT EXISTS bonus("
                 + " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-                + " id_funcionario INTEGER NOT NULL,"
+                + " funcionario INTEGER NOT NULL,"
                 + " tipo TEXT NOT NULL,"
                 + " data_bonus TEXT NOT NULL,"
                 + " valor REAL NOT NULL,"
                 + " cargo INTEGER NOT NULL, "
-                + " FOREIGN KEY (id_funcionario) REFERENCES funcionairos (id)"
+                + " FOREIGN KEY (funcionario) REFERENCES funcionarios (id)"
                 + " );";
 
         try ( Statement st = SQLiteConnection.getConexao().createStatement()) {
@@ -46,7 +46,7 @@ public class BonusProcessadoSQLiteDAO implements IBonusFuncionarioDAO {
             throw new Exception("O Metodo salvar da Classe BonusSQLiteDAO necessita que bonus tenha valores validos");
         }
 
-        String sql = "INSERT INTO bonus (id_funcionario, tipo, data_bonus, valor, cargo) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO bonus (funcionario, tipo, data_bonus, valor, cargo) VALUES (?, ?, ?, ?, ?)";
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -67,7 +67,7 @@ public class BonusProcessadoSQLiteDAO implements IBonusFuncionarioDAO {
 
     @Override
     public List<BonusProcessado> obter(int idFuncionario) throws Exception, SQLException {
-        String sql = "SELECT * FROM bonus WHERE id_funcionario = ?";
+        String sql = "SELECT * FROM bonus WHERE funcionario = ?";
         List<BonusProcessado> bonus = new ArrayList<>();
 
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -92,7 +92,7 @@ public class BonusProcessadoSQLiteDAO implements IBonusFuncionarioDAO {
 
     @Override
     public void remover(int idFuncionario, LocalDate data) throws Exception, SQLException {
-        String sql = "DELETE FROM bonus WHERE id_funcionario = ? AND data_bonus = ?";
+        String sql = "DELETE FROM bonus WHERE funcionario = ? AND data_bonus = ?";
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idFuncionario);
             ps.setString(2, data.toString());
@@ -104,7 +104,7 @@ public class BonusProcessadoSQLiteDAO implements IBonusFuncionarioDAO {
 
     @Override
     public void removerTodos(int idFuncionario) throws Exception, SQLException {
-        String sql = "DELETE FROM bonus WHERE id_funcionario = ?";
+        String sql = "DELETE FROM bonus WHERE funcionario = ?";
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idFuncionario);
 
