@@ -170,7 +170,7 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
 
     @Override
     public List<Funcionario> pesquisarPorNome(String pesquisa) throws Exception {
-        String sql = "SELECT * FROM funcionarios where nome LIKE ?";
+        String sql = "SELECT * FROM funcionarios where nome LIKE ? LIMIT 100";
         List<Funcionario> funcionarios = new ArrayList<>();
         try ( Connection conn = SQLiteConnection.getConexao()) {
             PreparedStatement ps = conn.prepareStatement(sql);
