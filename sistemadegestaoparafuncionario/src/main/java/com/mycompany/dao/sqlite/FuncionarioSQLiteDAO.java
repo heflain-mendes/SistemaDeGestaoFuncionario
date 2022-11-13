@@ -146,7 +146,7 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
 
     @Override
     public List<Funcionario> obterTodos() throws Exception {
-        String sql = "SELECT * FROM funcionarios LIMIT 100";
+        String sql = "SELECT * FROM funcionarios";
         List<Funcionario> funcionarios = new ArrayList<>();
         try ( Connection conn = SQLiteConnection.getConexao();  PreparedStatement ps = conn.prepareStatement(sql);  ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
@@ -170,7 +170,7 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
 
     @Override
     public List<Funcionario> pesquisarPorNome(String pesquisa) throws Exception {
-        String sql = "SELECT * FROM funcionarios where nome LIKE ? LIMIT 100";
+        String sql = "SELECT * FROM funcionarios where nome LIKE ?";
         List<Funcionario> funcionarios = new ArrayList<>();
         try ( Connection conn = SQLiteConnection.getConexao()) {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -226,5 +226,18 @@ public class FuncionarioSQLiteDAO implements IFuncionarioDAO {
         }
     }
     
-    
+    public int qtdFuncionarioCadastrado() throws Exception, SQLException{
+        String sql = "SELECT count(*) AS total FROM funcionarios";
+        
+        try ( Connection conn = SQLiteConnection.getConexao();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();) {
+        
+            rs.next();
+            
+            return rs.getInt("total");
+        }catch (SQLException e) {
+            throw new SQLException("Não foi possivel obter quantidade de registros na tabela funcionario");
+        }
+    }
 }

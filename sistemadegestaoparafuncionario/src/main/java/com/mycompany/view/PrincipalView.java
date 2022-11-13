@@ -4,6 +4,7 @@
  */
 package com.mycompany.view;
 
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
 /**
@@ -30,6 +31,9 @@ public class PrincipalView extends javax.swing.JFrame {
     private void initComponents() {
 
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        txtVersaoBiulder = new javax.swing.JLabel();
+        txtPersistencia = new javax.swing.JLabel();
+        txtQtdFuncionarios = new javax.swing.JLabel();
         mbPricipal = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         miCadastraFuncionario = new javax.swing.JMenuItem();
@@ -73,11 +77,24 @@ public class PrincipalView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1063, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(txtVersaoBiulder, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(274, 274, 274)
+                .addComponent(txtPersistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
+                .addComponent(txtQtdFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 522, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(487, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPersistencia)
+                    .addComponent(txtQtdFuncionarios)
+                    .addComponent(txtVersaoBiulder))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -128,6 +145,9 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem miCadastraFuncionario;
     private javax.swing.JMenuItem miCalcularSalario;
     private javax.swing.JMenuItem miCalculosEstatistico;
+    private javax.swing.JLabel txtPersistencia;
+    private javax.swing.JLabel txtQtdFuncionarios;
+    private javax.swing.JLabel txtVersaoBiulder;
     // End of variables declaration//GEN-END:variables
 
     public JMenuItem getMiBuscarFuncionario() {
@@ -145,4 +165,18 @@ public class PrincipalView extends javax.swing.JFrame {
     public JMenuItem getMiCalculosEstatistico() {
         return miCalculosEstatistico;
     }
+
+    public JLabel getTxtPersistencia() {
+        return txtPersistencia;
+    }
+
+    public JLabel getTxtQtdFuncionarios() {
+        return txtQtdFuncionarios;
+    }
+
+    public JLabel getTxtVersaoBiulder() {
+        return txtVersaoBiulder;
+    }
+    
+    
 }

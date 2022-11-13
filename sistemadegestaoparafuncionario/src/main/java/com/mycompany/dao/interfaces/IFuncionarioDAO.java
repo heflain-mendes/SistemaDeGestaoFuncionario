@@ -20,4 +20,5 @@ public interface IFuncionarioDAO {
     public List<Funcionario> obterTodos() throws Exception, SQLException;
     public List<Funcionario> pesquisarPorNome (String pesquisa) throws Exception, SQLException;
     public Funcionario obterPorId(int id) throws Exception, SQLException;
+    public int qtdFuncionarioCadastrado() throws Exception, SQLException;
 }

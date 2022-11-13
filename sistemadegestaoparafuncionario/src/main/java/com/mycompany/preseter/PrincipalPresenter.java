@@ -4,9 +4,12 @@
  */
 package com.mycompany.preseter;
 
+import com.mycompany.dao.DAOUtilitarios;
 import com.mycompany.view.PrincipalView;
+import io.github.cdimascio.dotenv.Dotenv;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +25,26 @@ public class PrincipalPresenter {
     }
 
     private void initListeners() {
+        Dotenv dotenv = Dotenv.load();
+        view.getTxtVersaoBiulder().setText("1.0-SNAPSHOT");
+        
+        try {
+            view.getTxtQtdFuncionarios().setText(
+                    "" +
+                            DAOUtilitarios.getInstance().getFuncionarioDAO().qtdFuncionarioCadastrado() +
+                            " funcionarios"
+            );
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage(),
+                    "erro a o carregar pagina inicial", 
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        
+        view.getTxtPersistencia().setText(dotenv.get("BANCO_DE_DADOS"));
 
         view.getMiCadastrarFuncionario().addActionListener(new ActionListener() {
             @Override
